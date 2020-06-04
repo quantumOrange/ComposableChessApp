@@ -7,15 +7,18 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
-struct ContentView: View {
+struct RootView: View {
+
     var body: some View {
-        Text("Hello, World!")
+       
+        ChessboardView(store:mockStore)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        RootView()
     }
 }
