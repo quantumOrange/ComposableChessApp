@@ -27,15 +27,15 @@ func absurd<A>(_ action:Never) -> A {
 
 extension CheckerboardState {
     var checkerboardSquaresState:CheckerboardSquaresState {
-        CheckerboardSquaresState(possibleDestinationSquares:possibleDestinationSquares , selectedSquare: selectedSquare, playerPointOfView: playerPointOfView)
+        CheckerboardSquaresState(possibleDestinationSquares:boardState.validDestinationSquares , selectedSquare: boardState.selectedSquare, playerPointOfView: boardState.playerPointOfView)
     }
     
     var tappableBoardState:TappableBoardState {
-        TappableBoardState(selectedSquare: selectedSquare, playerPointOfView: playerPointOfView)
+        TappableBoardState(selectedSquare: boardState.selectedSquare, playerPointOfView: boardState.playerPointOfView)
     }
     
     var placedPiecesState:PlacedPiecesState<Piece> {
-        PlacedPiecesState(placedPieces: placedPieces, pointOfView: playerPointOfView)
+        PlacedPiecesState(placedPieces: placedPieces, pointOfView: boardState.playerPointOfView)
     }
 }
 
@@ -69,7 +69,7 @@ public struct BoardView<Piece:PieceViewRepresenable> : View {
 
 
 
-let mockCheckerBoardState = CheckerboardState<DefaultPiece>(placedPieces:[pp1,pp2,pp3,pp4])
+let mockCheckerBoardState = CheckerboardState<DefaultPiece>(placedPieces:[pp1,pp2,pp3,pp4],turn:.white,boardState: BoardState())
 
 public let mockCheckerboardEnviroment = CheckerboardEnviroment(playMove: { move in
     
@@ -78,7 +78,7 @@ public let mockCheckerboardEnviroment = CheckerboardEnviroment(playMove: { move 
     return Effect(value: .validDestinationSquares([]))
 })
 
-let mockStore = Store(initialState: mockCheckerBoardState, reducer: checkerBoardReducer, environment: mockCheckerboardEnviroment)
+let mockStore = Store(initialState: mockCheckerBoardState, reducer: defaultCheckerBoardReducer, environment: mockCheckerboardEnviroment)
 
 struct CheckerboardView_Previews: PreviewProvider {
     static var previews: some View {

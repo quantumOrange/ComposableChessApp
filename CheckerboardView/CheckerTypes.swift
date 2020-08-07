@@ -12,7 +12,16 @@ public enum PlayerColor {
     case white, black
 }
 
-struct Move:Equatable {
+prefix func !(v:PlayerColor)-> PlayerColor {
+    switch v {
+    case .white:
+        return .black
+    case .black:
+        return .white
+    }
+}
+
+public struct Move:Equatable {
     let from:CheckerboardSquare
     let to:CheckerboardSquare
 }

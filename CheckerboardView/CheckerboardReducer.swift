@@ -27,30 +27,48 @@ import ComposableArchitecture
 ///     }
 ///
 public struct CheckerboardEnviroment {
+    public init(playMove:@escaping (Move) -> Effect<CheckerboardAction,Never>,selected:@escaping (CheckerboardSquare) -> Effect<CheckerboardAction,Never> ){
+        self.playMove = playMove
+        self.selected = selected
+    }
     var playMove:(Move) -> Effect<CheckerboardAction,Never> // should return a .clear
     var selected:(CheckerboardSquare) -> Effect<CheckerboardAction,Never>  // should return a .validDestinationSquares
 }
 
-
-
-public struct CheckerboardState<Piece:PieceViewRepresenable>:Equatable {
-    
-    var placedPieces:[PlacedCheckerPiece<Piece>]
-    
+public struct BoardState:Equatable {
     var playerPointOfView:PlayerColor = .white
     var selectedSquare:CheckerboardSquare? = nil
     var validDestinationSquares:[CheckerboardSquare] = []
-    var possibleDestinationSquares:[CheckerboardSquare] = []
-    var turn:PlayerColor = .white
-    var playable:Playable = .playSide(.white)
+    
+    //var playable:Playable = .playSide(.white)
     var userHasFlippedBoard:Bool = false //TODO get rid of this.
     
-    public init(placedPieces:[PlacedCheckerPiece<Piece>]){
-        self.placedPieces = placedPieces
-    }
+    public init() {}
 }
 
-
+public struct CheckerboardState<Piece:PieceViewRepresenable>:Equatable {
+    var placedPieces:[PlacedCheckerPiece<Piece>]
+    var turn:PlayerColor
+    
+    var userPlaysBlack:Bool = false
+    var userPlaysWhite:Bool = true
+    
+    var isUsersTurn:Bool {
+        switch turn {
+        case .white:
+            return userPlaysWhite
+        case .black:
+            return userPlaysBlack
+        }
+    }
+    public var boardState:BoardState
+    
+    public init(placedPieces:[PlacedCheckerPiece<Piece>],turn:PlayerColor, boardState:BoardState){
+        self.placedPieces = placedPieces
+        self.turn = turn
+        self.boardState = boardState
+    }
+}
 
 public enum CheckerboardAction {
     case tap(CheckerboardSquare)
@@ -59,9 +77,17 @@ public enum CheckerboardAction {
     case validDestinationSquares([CheckerboardSquare])
 }
 
-let checkerBoardReducer = Reducer<CheckerboardState<DefaultPiece>, CheckerboardAction, CheckerboardEnviroment> { state, action, environment in
+let defaultCheckerBoardReducer = Reducer<CheckerboardState<DefaultPiece>, CheckerboardAction, CheckerboardEnviroment> (checkerBoardReducer)
 
-    func isYourPiece(state:CheckerboardState<DefaultPiece>, square:CheckerboardSquare) ->Bool{
+
+func checkerBoardReducer2<Piece>(  ) -> Reducer<CheckerboardState<Piece>, CheckerboardAction, CheckerboardEnviroment> {
+    fatalError()
+}
+
+
+public func checkerBoardReducer<Piece>( state:inout CheckerboardState<Piece>, action:CheckerboardAction, environment:CheckerboardEnviroment) -> Effect<CheckerboardAction, Never> {
+
+    func isYourPiece(state:CheckerboardState<Piece>, square:CheckerboardSquare) ->Bool{
         guard let placedPiece = state.placedPieces.first(where:{ $0.square == square })  else { return false }
         return placedPiece.piece.playerColor == state.turn
     }
@@ -70,16 +96,16 @@ let checkerBoardReducer = Reducer<CheckerboardState<DefaultPiece>, CheckerboardA
       
       case .tap(let square):
         print("did Tap");
-        if(!state.playable.canPlay(as: state.turn)) {
+        if(!state.isUsersTurn) {
               //Can only select a square if it is the app users turn
               // ( for now anyway.  could allow pre-selection )
               break
           }
-          if state.selectedSquare == square
+        if state.boardState.selectedSquare == square
           {
               //Tapping the selected square, so toggle off!
-              state.selectedSquare = nil
-              state.validDestinationSquares = []
+            state.boardState.selectedSquare = nil
+            state.boardState.validDestinationSquares = []
           }
           else
           {
@@ -87,21 +113,22 @@ let checkerBoardReducer = Reducer<CheckerboardState<DefaultPiece>, CheckerboardA
             if isYourPiece(state:state , square: square)
               {
                     //selecting a differant peice to move
-                   state.selectedSquare = square
-                   state.validDestinationSquares = []
+                   state.boardState.selectedSquare = square
+                   state.boardState.validDestinationSquares = []
                 return environment.selected(square)
               }
-              else if let selectedSquare = state.selectedSquare
+              else if let selectedSquare = state.boardState.selectedSquare
               {
                   //We have a selected square already
                   let move =  Move(from: selectedSquare,to:square)
+                
                   /*
                   let effect = Effect<Output<ChessboardAction,ChessboardExoAction>>.sync(work: {
                       return .exo(.move(move))
                   })
                   
                   return effect
-                         */
+                  */
                 
                 return environment.playMove(move)
               }
@@ -119,14 +146,14 @@ let checkerBoardReducer = Reducer<CheckerboardState<DefaultPiece>, CheckerboardA
                  break
           }
           */
-        state.selectedSquare = nil
-        state.validDestinationSquares = []
+        state.boardState.selectedSquare = nil
+        state.boardState.validDestinationSquares = []
       
       case .flipBoard:
-          state.userHasFlippedBoard.toggle()
-          //state.playerPointOfView = color
+          //state.userHasFlippedBoard.toggle()
+          state.boardState.playerPointOfView =  !state.boardState.playerPointOfView
     case .validDestinationSquares(let squares):
-        state.validDestinationSquares = squares
+        state.boardState.validDestinationSquares = squares
     }
     return .none
 

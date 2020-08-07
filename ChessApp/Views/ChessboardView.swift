@@ -17,7 +17,11 @@ struct ChessboardView: View {
     let store: Store<CheckerboardState<ChessPiece>,CheckerboardAction>
     
     var body: some View {
-        BoardView(store: store, width: 300)
+        GeometryReader { geom in
+            
+            BoardView(store: self.store, width: geom.size.width)
+        }
+        
     }
 }
 
@@ -40,7 +44,7 @@ let placedPieces = board.positionPieces.map {
     PlacedCheckerPiece(piece: $0.1, square: $0.0.boardSquare)
 }
 
-let mockCheckerBoardState = CheckerboardState<ChessPiece>(placedPieces:placedPieces)
+let mockCheckerBoardState = CheckerboardState<ChessPiece>(placedPieces:placedPieces,turn: .white,boardState: BoardState())
 
 
 let mockReducer  = Reducer<CheckerboardState<ChessPiece>, CheckerboardAction, CheckerboardEnviroment> { state, action, environment in

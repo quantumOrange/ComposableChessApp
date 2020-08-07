@@ -15,9 +15,9 @@ func evaluateMove(_ board:Chessboard, noise:Float) -> (ChessMove) -> Float {
     }
 }
 
-func pickMove(for board:Chessboard) -> ChessMove? {
+public func pickMove(for board:Chessboard) -> ChessMove? {
     //return pickMoveSimple(for: board)
-    return pickMoveMiniMax(for: board, depth:3)
+    return pickMoveMiniMax(for: board, depth:1)
 }
 
 func pickMoveSimple(for board:Chessboard) -> ChessMove? {

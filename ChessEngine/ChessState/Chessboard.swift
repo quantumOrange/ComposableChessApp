@@ -54,8 +54,6 @@ public struct Chessboard:Codable {
     var castelState:CastelState = CastelState()
    // var whiteCastelState:CastelState = CastelState()
     
-   
-    
     var moves:[ChessMove] = []
     
     var redoableMoves:[ChessMove] = []

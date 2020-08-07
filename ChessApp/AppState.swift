@@ -8,19 +8,20 @@
 
 import Foundation
 import ChessEngine
-
+import CheckerboardView
 
 struct AppState {
-    var user = User.david()
+    //var user = User.david()
     
-   // var chessGame:ChessGameState = ChessGameState()
+    var chessGame:ChessGameState = ChessGameState()
     
+    var boardstate:BoardState = BoardState()
+    //var selectedSquare:ChessboardSquare?
     
-    var selectedSquare:ChessboardSquare?
-    
-    var playerPointOfView:PlayerColor = .white
+    //var playerPointOfView:PlayerColor = .white
     
 }
+
 
 
 

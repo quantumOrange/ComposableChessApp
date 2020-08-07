@@ -9,6 +9,26 @@
 import Foundation
 import ChessEngine
 import CheckerboardView
+import ComposableArchitecture
+//let placedPieces = chessGame.board.positionPieces.map { PlacedCheckerPiece(piece: $0.1, square: $0.0.boardSquare) }
+
+extension AppState {
+    var chessboardState:CheckerboardState<ChessPiece> {
+        get { CheckerboardState(placedPieces: chessGame.board.positionPieces.map { PlacedCheckerPiece(piece: $0.1, square: $0.0.boardSquare) },
+                                turn:chessGame.board.whosTurnIsItAnyway.checkerboardColor ,
+                                boardState: boardstate) }
+        set { boardstate = newValue.boardState }
+    }
+}
+
+let chessboardReducer = Reducer<CheckerboardState<ChessPiece>, CheckerboardAction, CheckerboardEnviroment> (checkerBoardReducer)
+
+let appReducer: Reducer<AppState, AppAction, AppEnviroment> = Reducer.combine(
+    chessboardReducer.pullback(state: \.chessboardState, action: /AppAction.selection , environment: { enviroment in enviroment.checkerboardEnviroment }),
+    chessReducer.pullback(state: \.chessGame, action:/AppAction.chess,environment: { enviroment in enviroment.chessEnviroment })
+
+)
+
 
 /*
 let appReducer:Reducer<AppState, AppAction> = combineReducers(
