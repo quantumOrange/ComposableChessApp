@@ -480,3 +480,8 @@ func gamePlayState(chessboard:Chessboard) -> Chessboard.GamePlayState {
     
     return .inPlay
 }
+
+
+extension Chessboard:Equatable {
+    
+}

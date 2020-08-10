@@ -11,8 +11,8 @@ import ChessEngine
 import CheckerboardView
 
 enum AppAction {
-    case chess(ChessAction)
-    case selection(CheckerboardAction)
+    
+    case chess(CheckerboardAction<ChessGameState>)
     // case nav(NavAction)
     // case gameCenter(GameCenterAction)
     // case clock(ChessClockAction)

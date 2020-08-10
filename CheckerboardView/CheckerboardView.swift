@@ -34,19 +34,19 @@ extension CheckerboardState {
         TappableBoardState(selectedSquare: boardState.selectedSquare, playerPointOfView: boardState.playerPointOfView)
     }
     
-    var placedPiecesState:PlacedPiecesState<Piece> {
-        PlacedPiecesState(placedPieces: placedPieces, pointOfView: boardState.playerPointOfView)
+    var placedPiecesState:PlacedPiecesState<Game.Piece> {
+        PlacedPiecesState(placedPieces: game.placedPieces, pointOfView: boardState.playerPointOfView)
     }
 }
 
-public struct BoardView<Piece:PieceViewRepresenable> : View {
+public struct BoardView<Game:CheckerboardGame> : View {
     
-    public init(store:Store<CheckerboardState<Piece>,CheckerboardAction>,width:CGFloat) {
+    public init(store:Store<CheckerboardState<Game>,CheckerboardAction<Game>>,width:CGFloat) {
         self.store = store
         self.width = width
     }
     
-   let store: Store<CheckerboardState<Piece>,CheckerboardAction>
+   let store: Store<CheckerboardState<Game>,CheckerboardAction<Game>>
   
     let width:CGFloat
     
@@ -69,15 +69,22 @@ public struct BoardView<Piece:PieceViewRepresenable> : View {
 
 
 
-let mockCheckerBoardState = CheckerboardState<DefaultPiece>(placedPieces:[pp1,pp2,pp3,pp4],turn:.white,boardState: BoardState())
+let mockCheckerBoardState = CheckerboardState<DefaultGame>(game:DefaultGame(),turn:.white,boardState: BoardState())
 
-public let mockCheckerboardEnviroment = CheckerboardEnviroment(playMove: { move in
+
+//public let mockCheckerboardEnviroment = CheckerboardEnviroment(
+
+let mockCheckerboardEnviroment = CheckerboardEnviroment<DefaultGame>(requestMove: { game in
+    return Effect(value: .setGame(game))
+})
+/*Game
+let mockCheckerboardEnviroment = CheckerboardEnviroment(playMove: { move in
     
     return Effect(value: .clear)
 }, selected: { square in
     return Effect(value: .validDestinationSquares([]))
 })
-
+*/
 let mockStore = Store(initialState: mockCheckerBoardState, reducer: defaultCheckerBoardReducer, environment: mockCheckerboardEnviroment)
 
 struct CheckerboardView_Previews: PreviewProvider {

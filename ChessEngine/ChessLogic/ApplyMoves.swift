@@ -14,7 +14,7 @@ func apply(move:Move, to board:Chessboard) -> Chessboard? {
 }
 
 
-func apply(move:ChessMove, to board:Chessboard) -> Chessboard? {
+public func apply(move:ChessMove, to board:Chessboard) -> Chessboard? {
     var board = board
     board.apply(move: move)
     return board

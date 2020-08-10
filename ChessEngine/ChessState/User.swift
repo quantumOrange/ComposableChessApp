@@ -48,7 +48,7 @@ struct Players {
    }
 }
 
-public struct PlayerTypes:Codable {
+public struct PlayerTypes:Codable,Equatable {
     let white:PlayerType
     let black:PlayerType
     

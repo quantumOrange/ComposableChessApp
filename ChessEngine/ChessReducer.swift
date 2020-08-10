@@ -48,7 +48,7 @@ public enum ChessExoAction {
     case gameBegan
 }
 
-public struct ChessGameState {
+public struct ChessGameState:Equatable {
     var gameHasBegun = false
     public var board:Chessboard =  Chessboard.start()
     public var players:PlayerTypes = PlayerTypes(white:.none, black: .none)
@@ -59,7 +59,13 @@ public struct ChessGameState {
     }
 }
 
-
+public func applyMoveIfValid(board:inout Chessboard,move:Move)->Bool{
+    guard let validatedMove = validate(chessboard:board, move:move) else { return false }
+    
+    board.apply(move:validatedMove)
+    board.gamePlayState = gamePlayState(chessboard: board)
+    return true
+}
 
 func moveAction(validated move:ChessMove, game:inout ChessGameState) -> Effect<ChessAction,Never>{
    print("We are appling \( game.board.whosTurnIsItAnyway)'s  move \(move)")

@@ -11,7 +11,7 @@ import ChessEngine
 import CheckerboardView
 
 struct AppState {
-    //var user = User.david()
+    var user = User.david()
     
     var chessGame:ChessGameState = ChessGameState()
     

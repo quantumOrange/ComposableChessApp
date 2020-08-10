@@ -14,7 +14,7 @@ import ComposableArchitecture
 
 
 struct ChessboardView: View {
-    let store: Store<CheckerboardState<ChessPiece>,CheckerboardAction>
+    let store: Store<CheckerboardState<ChessGameState>,CheckerboardAction<ChessGameState>>
     
     var body: some View {
         GeometryReader { geom in
@@ -43,7 +43,7 @@ extension ChessboardSquare {
 let placedPieces = board.positionPieces.map {
     PlacedCheckerPiece(piece: $0.1, square: $0.0.boardSquare)
 }
-
+/*
 let mockCheckerBoardState = CheckerboardState<ChessPiece>(placedPieces:placedPieces,turn: .white,boardState: BoardState())
 
 
@@ -58,3 +58,4 @@ struct ChessboardView_Previews: PreviewProvider {
         ChessboardView(store: mockStore)
     }
 }
+*/

@@ -22,8 +22,8 @@ prefix func !(v:PlayerColor)-> PlayerColor {
 }
 
 public struct Move:Equatable {
-    let from:CheckerboardSquare
-    let to:CheckerboardSquare
+    public let from:CheckerboardSquare
+    public let to:CheckerboardSquare
 }
 
 public struct CheckerboardSquare:Equatable {
@@ -33,6 +33,10 @@ public struct CheckerboardSquare:Equatable {
     public init(rank:Int,file:Int ){
         self.rank = rank
         self.file = file
+    }
+    
+    public var int8Value:Int8 {
+        Int8(self.file*8 + self.rank)
     }
 }
 

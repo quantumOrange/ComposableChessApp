@@ -13,22 +13,22 @@ import ComposableArchitecture
 //let placedPieces = chessGame.board.positionPieces.map { PlacedCheckerPiece(piece: $0.1, square: $0.0.boardSquare) }
 
 extension AppState {
-    var chessboardState:CheckerboardState<ChessPiece> {
-        get { CheckerboardState(placedPieces: chessGame.board.positionPieces.map { PlacedCheckerPiece(piece: $0.1, square: $0.0.boardSquare) },
-                                turn:chessGame.board.whosTurnIsItAnyway.checkerboardColor ,
-                                boardState: boardstate) }
-        set { boardstate = newValue.boardState }
+    //CheckerboardState(placedPieces: chessGame.board.positionPieces.map { PlacedCheckerPiece(piece: $0.1, square: $0.0.boardSquare)
+    var chessboardState:CheckerboardState<ChessGameState> {
+        get { CheckerboardState(game: chessGame, turn: chessGame.board.whosTurnIsItAnyway.checkerboardColor , boardState: boardstate ) }
+        set { boardstate = newValue.boardState
+            chessGame = newValue.game
+        }
     }
 }
 
-let chessboardReducer = Reducer<CheckerboardState<ChessPiece>, CheckerboardAction, CheckerboardEnviroment> (checkerBoardReducer)
+let chessboardReducer = Reducer<CheckerboardState<ChessGameState>, CheckerboardAction, CheckerboardEnviroment> (checkerBoardReducer)
 
 let appReducer: Reducer<AppState, AppAction, AppEnviroment> = Reducer.combine(
-    chessboardReducer.pullback(state: \.chessboardState, action: /AppAction.selection , environment: { enviroment in enviroment.checkerboardEnviroment }),
-    chessReducer.pullback(state: \.chessGame, action:/AppAction.chess,environment: { enviroment in enviroment.chessEnviroment })
+    chessboardReducer.pullback(state: \.chessboardState, action: /AppAction.chess , environment: { enviroment in enviroment.chessEnviroment })
+   // chessReducer.pullback(state: \.chessGame, action:/AppAction.chess,environment: { enviroment in enviroment.chessEnviroment })
 
 )
-
 
 /*
 let appReducer:Reducer<AppState, AppAction> = combineReducers(

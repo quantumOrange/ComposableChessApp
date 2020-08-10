@@ -11,7 +11,20 @@ import CheckerboardView
 import ChessEngine
 import ComposableArchitecture
 
+
+
 struct AppEnviroment {
+    let chessEnviroment = CheckerboardEnviroment<ChessGameState>(requestMove: {game in
+        if let move = pickMove(for: game.board),
+            let board = apply(move:move, to:game.board) {
+            var newGame = game
+            newGame.board = board
+            print("Created new game")
+            return Effect(value: CheckerboardAction.setGame(newGame))
+        }
+        return Effect.none
+    })
+    /*
     let checkerboardEnviroment = CheckerboardEnviroment(playMove: { move in
         
         return Effect(value: .clear)
@@ -37,4 +50,5 @@ struct AppEnviroment {
         Effect.none
     }
     )
+   */
 }

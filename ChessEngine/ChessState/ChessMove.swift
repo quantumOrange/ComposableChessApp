@@ -126,6 +126,13 @@ extension Move {
     }
 }
 
+extension Move {
+    public init?(from:Int8 ,to:Int8) {
+        self.from = from.chessboardSquare
+        self.to = to.chessboardSquare
+    }
+}
+
 func isYourPiece(chessboard:Chessboard, move:ChessMove) -> Bool {
     return isYourPiece(chessboard: chessboard, square: move.from)
 }

@@ -29,7 +29,7 @@ struct RootView: View {
     let store = Store(initialState: AppState(), reducer: appReducer, environment: AppEnviroment())
     
     var body: some View {
-        ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.selection))
+        ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.chess))
     }
 }
 
