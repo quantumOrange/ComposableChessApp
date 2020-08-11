@@ -15,14 +15,21 @@ import ComposableArchitecture
 
 struct AppEnviroment {
     let chessEnviroment = CheckerboardEnviroment<ChessGameState>(requestMove: {game in
-        if let move = pickMove(for: game.board),
-            let board = apply(move:move, to:game.board) {
-            var newGame = game
-            newGame.board = board
-            print("Created new game")
-            return Effect(value: CheckerboardAction.setGame(newGame))
-        }
-        return Effect.none
+       
+        let effect = Effect<CheckerboardAction<ChessGameState>, Never>.future { callback in
+               DispatchQueue.main.async {
+                var newGame = game
+                
+                if let move = pickMove(for: game.board),
+                    let board = apply(move:move, to:game.board) {
+                    newGame.board = board
+                }
+                callback(.success(CheckerboardAction.setGame(newGame)))
+                
+              }
+             }
+        
+        return effect
     })
     /*
     let checkerboardEnviroment = CheckerboardEnviroment(playMove: { move in
