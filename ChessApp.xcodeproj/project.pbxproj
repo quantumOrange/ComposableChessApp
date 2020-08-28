@@ -69,6 +69,12 @@
 		54BE6A8724D99BB4005D9D82 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8624D99BB4005D9D82 /* AppStore.swift */; };
 		54BE6A8924D9A31F005D9D82 /* AppEnviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8824D9A31F005D9D82 /* AppEnviroment.swift */; };
 		54BE6A8B24E1AD72005D9D82 /* ChessGameState+Checkerboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8A24E1AD71005D9D82 /* ChessGameState+Checkerboard.swift */; };
+		54BE6A8D24E3F51C005D9D82 /* ChessGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */; };
+		54BE6A9124E3FEF0005D9D82 /* TurnBasedMatchmakerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8E24E3FEEF005D9D82 /* TurnBasedMatchmakerDelegate.swift */; };
+		54BE6A9224E3FEF0005D9D82 /* GameCenterReducerOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8F24E3FEEF005D9D82 /* GameCenterReducerOld.swift */; };
+		54BE6A9324E3FEF0005D9D82 /* PlayerListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A9024E3FEF0005D9D82 /* PlayerListener.swift */; };
+		54BE6A9524E40B0C005D9D82 /* GameCenterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A9424E40B0C005D9D82 /* GameCenterClient.swift */; };
+		54BE6A9724E40F96005D9D82 /* GameCenterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A9624E40F96005D9D82 /* GameCenterState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -300,6 +306,12 @@
 		54BE6A8624D99BB4005D9D82 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		54BE6A8824D9A31F005D9D82 /* AppEnviroment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnviroment.swift; sourceTree = "<group>"; };
 		54BE6A8A24E1AD71005D9D82 /* ChessGameState+Checkerboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChessGameState+Checkerboard.swift"; sourceTree = "<group>"; };
+		54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessGameState.swift; sourceTree = "<group>"; };
+		54BE6A8E24E3FEEF005D9D82 /* TurnBasedMatchmakerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnBasedMatchmakerDelegate.swift; sourceTree = "<group>"; };
+		54BE6A8F24E3FEEF005D9D82 /* GameCenterReducerOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCenterReducerOld.swift; sourceTree = "<group>"; };
+		54BE6A9024E3FEF0005D9D82 /* PlayerListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerListener.swift; sourceTree = "<group>"; };
+		54BE6A9424E40B0C005D9D82 /* GameCenterClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterClient.swift; sourceTree = "<group>"; };
+		54BE6A9624E40F96005D9D82 /* GameCenterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,6 +443,7 @@
 				54806A1224884A7600A91153 /* AppAction.swift */,
 				54806A1024884A7600A91153 /* AppReducer.swift */,
 				54BE6A8824D9A31F005D9D82 /* AppEnviroment.swift */,
+				54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */,
 				54BE6A8A24E1AD71005D9D82 /* ChessGameState+Checkerboard.swift */,
 				54806A1124884A7600A91153 /* AppState.swift */,
 				54BE6A8624D99BB4005D9D82 /* AppStore.swift */,
@@ -534,6 +547,11 @@
 		548069B724883AFA00A91153 /* CAGameCenter */ = {
 			isa = PBXGroup;
 			children = (
+				54BE6A9424E40B0C005D9D82 /* GameCenterClient.swift */,
+				54BE6A9624E40F96005D9D82 /* GameCenterState.swift */,
+				54BE6A9024E3FEF0005D9D82 /* PlayerListener.swift */,
+				54BE6A8E24E3FEEF005D9D82 /* TurnBasedMatchmakerDelegate.swift */,
+				54BE6A8F24E3FEEF005D9D82 /* GameCenterReducerOld.swift */,
 				548069B824883AFA00A91153 /* CAGameCenter.h */,
 				548069B924883AFA00A91153 /* Info.plist */,
 			);
@@ -863,6 +881,7 @@
 					};
 					548069B524883AF900A91153 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1150;
 					};
 					548069BD24883AFA00A91153 = {
 						CreatedOnToolsVersion = 11.5;
@@ -981,6 +1000,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54BE6A8D24E3F51C005D9D82 /* ChessGameState.swift in Sources */,
 				54806A1324884A7600A91153 /* AppReducer.swift in Sources */,
 				54806A1524884A7600A91153 /* AppAction.swift in Sources */,
 				548069232488388100A91153 /* AppDelegate.swift in Sources */,
@@ -1072,6 +1092,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54BE6A9124E3FEF0005D9D82 /* TurnBasedMatchmakerDelegate.swift in Sources */,
+				54BE6A9324E3FEF0005D9D82 /* PlayerListener.swift in Sources */,
+				54BE6A9224E3FEF0005D9D82 /* GameCenterReducerOld.swift in Sources */,
+				54BE6A9724E40F96005D9D82 /* GameCenterState.swift in Sources */,
+				54BE6A9524E40B0C005D9D82 /* GameCenterClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1662,6 +1687,7 @@
 		548069CE24883AFA00A91153 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1679,6 +1705,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.crooks.CAGameCenter;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1689,6 +1716,7 @@
 		548069CF24883AFA00A91153 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

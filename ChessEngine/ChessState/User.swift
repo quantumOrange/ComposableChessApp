@@ -27,12 +27,7 @@ extension User {
     }
 }
 
-public enum PlayerType:String,Codable {
-    case none
-    case appUser
-    case remote  //gamecenter
-    case computer
-}
+
 
 struct Players {
     let white:User
@@ -47,8 +42,13 @@ struct Players {
        }
    }
 }
-
-public struct PlayerTypes:Codable,Equatable {
+enum PlayerType:String,Codable {
+    case none
+    case appUser
+    case remote  //gamecenter
+    case computer
+}
+struct PlayerTypes:Codable,Equatable {
     let white:PlayerType
     let black:PlayerType
     

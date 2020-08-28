@@ -48,7 +48,7 @@ public enum ChessExoAction {
     case gameBegan
 }
 
-public struct ChessGameState:Equatable {
+struct ChessGameState:Equatable {
     var gameHasBegun = false
     public var board:Chessboard =  Chessboard.start()
     public var players:PlayerTypes = PlayerTypes(white:.none, black: .none)
@@ -133,7 +133,7 @@ let pickMoveEffect = Effect<ChessAction,Never >.run({ callback in
 })
 */
 
-public let chessReducer = Reducer<ChessGameState,ChessAction,ChessEnviroment> { game, action , enviroment in
+let chessReducer = Reducer<ChessGameState,ChessAction,ChessEnviroment> { game, action , enviroment in
     
     switch action {
            

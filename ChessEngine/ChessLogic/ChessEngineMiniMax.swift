@@ -67,7 +67,7 @@ func miniMaxRoot(for board:Chessboard, depth:Int) -> ChessMove? {
                                 player:!playerTurn)
         values.append(newValue)
         
-        mutableBoard.undo()
+        _ = mutableBoard.undo()
     }
    
     

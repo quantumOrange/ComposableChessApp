@@ -16,8 +16,15 @@ func evaluateMove(_ board:Chessboard, noise:Float) -> (ChessMove) -> Float {
 }
 
 public func pickMove(for board:Chessboard) -> ChessMove? {
-    //return pickMoveSimple(for: board)
-    return pickMoveMiniMax(for: board, depth:1)
+    let start = DispatchTime.now() // <<<<<<<<<< Start time
+    let depth = 2
+    let move = pickMoveMiniMax(for: board, depth:depth)
+    let end = DispatchTime.now()
+    let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // nano seconds (UInt64)
+    let timeInterval = Double(nanoTime) / 1_000_000_000
+
+    print("Time to find best move to depth \(depth): \(timeInterval)")
+    return move
 }
 
 func pickMoveSimple(for board:Chessboard) -> ChessMove? {
