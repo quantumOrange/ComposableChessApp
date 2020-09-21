@@ -58,8 +58,6 @@ func requestNextTurn(game:ChessGameState, enviroment:ChessGameEnviromentProtocol
     }
 }
 
-
-
 let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnviromentProtocol>
 { game, action, enviroment in
     
@@ -103,7 +101,6 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
            case .black:
                game.players =  PlayerTypes(white:.remote, black: .appUser)
            }
-          
            game.gameHasBegun = true
            
            

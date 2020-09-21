@@ -58,6 +58,7 @@ extension GameCenterState {
 }
 
 public enum GameCenterClientAction<Game:TwoPlayerGame> {
+    case subscribe
     case authenticate
     case authenticated
     case findMatch
@@ -68,27 +69,36 @@ public enum GameCenterClientAction<Game:TwoPlayerGame> {
 }
 
 
-public func gameReducer<Game:TwoPlayerGame>( state:inout GameCenterState<Game>, action:GameCenterClientAction<Game>, environment:GameCenterClient<Game>) -> Effect<GameCenterClientAction<Game>,Never> {
+public protocol GameCenterEnviromentProtocol {
+    associatedtype Game:TwoPlayerGame
+    var client:GameCenterClient<Game> {get}
+    func subscribe() ->  Effect<GameCenterClientAction<Game>,Never>
+}
+
+public func gameReducer<Enviroment:GameCenterEnviromentProtocol>( state:inout GameCenterState<Enviroment.Game>, action:GameCenterClientAction<Enviroment.Game>, environment:Enviroment) -> Effect<GameCenterClientAction<Enviroment.Game>,Never> {
     
 
     switch action {
+    
     case .authenticate:
-        return environment.requestAuthorization()
+        return environment.client.requestAuthorization()
     case .findMatch:
-        return environment.getMatch()
+        return environment.client.getMatch()
     case .authenticated:
         state.matchState.isAuthenticated = true
     case .foundMatch:
         state.matchState.isMatched = true
         
     case .sendTurn(let game):
-        return environment.sendTurnEvent(game: game)
+        return environment.client.sendTurnEvent(game: game)
     case .playerRceivedTurnEvent(let game):
         state.game = game
     case .gameOverWithWinner(_):
         state.matchState.isSendingTurn = false
         state.matchState.isMatched = false
     
+    case .subscribe:
+        return environment.subscribe()
     }
     
     return Effect.none

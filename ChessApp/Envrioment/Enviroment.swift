@@ -15,26 +15,17 @@ import CAGameCenter
 struct Enviroment {
     
     let applicationEnvirment = ApplicationEnviroment()
-    
     let chessboardEnviroment:CheckerboardEnviroment
-    let gameCenterClient = GameCenterClient<Chessboard>()
+    let gameCenterEnviroment:GameCenterEnviroment
     let chessGameEnviroment:ChessGameEnviroment
-    
     
     init() {
         self.chessboardEnviroment = CheckerboardEnviroment(applicationEnviroment:applicationEnvirment)
         self.chessGameEnviroment  = ChessGameEnviroment(applicationEnviroment:applicationEnvirment)
+        self.gameCenterEnviroment = GameCenterEnviroment(applicationEnviroment:applicationEnvirment)
     }
     
 }
 
-
-
-
-extension Chessboard:TwoPlayerGame {
-    public func currentPlayerTurn() -> Player {
-        return .local //???
-    }
-}
 
 

@@ -17,6 +17,7 @@
 		54115A5A2518C51A002DF01D /* ChessGameReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A592518C51A002DF01D /* ChessGameReducer.swift */; };
 		54115A5C2518E141002DF01D /* ChessGameEnviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A5B2518E141002DF01D /* ChessGameEnviroment.swift */; };
 		54115A5E2518FC73002DF01D /* CheckerboardEnviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A5D2518FC73002DF01D /* CheckerboardEnviroment.swift */; };
+		54115A6025191FBF002DF01D /* GameCenterEnviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A5F25191FBF002DF01D /* GameCenterEnviroment.swift */; };
 		548069232488388100A91153 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069222488388100A91153 /* AppDelegate.swift */; };
 		548069252488388100A91153 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069242488388100A91153 /* SceneDelegate.swift */; };
 		548069272488388100A91153 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069262488388100A91153 /* RootView.swift */; };
@@ -261,6 +262,7 @@
 		54115A592518C51A002DF01D /* ChessGameReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessGameReducer.swift; sourceTree = "<group>"; };
 		54115A5B2518E141002DF01D /* ChessGameEnviroment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessGameEnviroment.swift; sourceTree = "<group>"; };
 		54115A5D2518FC73002DF01D /* CheckerboardEnviroment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerboardEnviroment.swift; sourceTree = "<group>"; };
+		54115A5F25191FBF002DF01D /* GameCenterEnviroment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterEnviroment.swift; sourceTree = "<group>"; };
 		5480691F2488388100A91153 /* ChessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		548069222488388100A91153 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		548069242488388100A91153 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -416,6 +418,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54115A6125191FCE002DF01D /* Envrioment */ = {
+			isa = PBXGroup;
+			children = (
+				54BE6A8824D9A31F005D9D82 /* Enviroment.swift */,
+				54115A2025168D6B002DF01D /* ApplicationEnviroment.swift */,
+				54115A5F25191FBF002DF01D /* GameCenterEnviroment.swift */,
+				54115A5B2518E141002DF01D /* ChessGameEnviroment.swift */,
+				54115A5D2518FC73002DF01D /* CheckerboardEnviroment.swift */,
+			);
+			path = Envrioment;
+			sourceTree = "<group>";
+		};
 		548069162488388100A91153 = {
 			isa = PBXGroup;
 			children = (
@@ -457,12 +471,9 @@
 				548069222488388100A91153 /* AppDelegate.swift */,
 				548069242488388100A91153 /* SceneDelegate.swift */,
 				54806A1224884A7600A91153 /* AppAction.swift */,
-				54806A1024884A7600A91153 /* AppReducer.swift */,
-				54BE6A8824D9A31F005D9D82 /* Enviroment.swift */,
-				54115A2025168D6B002DF01D /* ApplicationEnviroment.swift */,
-				54115A5B2518E141002DF01D /* ChessGameEnviroment.swift */,
-				54115A5D2518FC73002DF01D /* CheckerboardEnviroment.swift */,
 				54115A592518C51A002DF01D /* ChessGameReducer.swift */,
+				54806A1024884A7600A91153 /* AppReducer.swift */,
+				54115A6125191FCE002DF01D /* Envrioment */,
 				54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */,
 				54BE6A8A24E1AD71005D9D82 /* ChessGameState+Checkerboard.swift */,
 				54806A1124884A7600A91153 /* AppState.swift */,
@@ -1025,6 +1036,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54115A1925151825002DF01D /* ChessGameView.swift in Sources */,
+				54115A6025191FBF002DF01D /* GameCenterEnviroment.swift in Sources */,
 				54BE6A8D24E3F51C005D9D82 /* ChessGameState.swift in Sources */,
 				54115A172515178E002DF01D /* ChessEngine+Checkerboard.swift in Sources */,
 				54806A1324884A7600A91153 /* AppReducer.swift in Sources */,

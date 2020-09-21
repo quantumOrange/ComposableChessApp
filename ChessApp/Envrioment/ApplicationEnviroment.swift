@@ -45,6 +45,13 @@ final class ApplicationEnviroment {
         }
     }
     
+    func sendTurnToGameCenter(chessboard:Chessboard) -> Effect<ChessGameAction, Never> {
+        return Effect.fireAndForget
+        {
+            self.send(action: .gameCenter(.sendTurn(chessboard)))
+        }
+    }
+    
     func applyMove(move:CheckerboardView.Move) -> Effect<CheckerboardAction,Never>
     {
         return Effect.fireAndForget

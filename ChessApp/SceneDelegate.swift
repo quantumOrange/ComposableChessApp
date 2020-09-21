@@ -26,19 +26,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let appStore = Store(initialState: AppState(), reducer: appReducer, environment: Enviroment())
         self.store = appStore
-        let contentView = RootView(store:appStore)
-        
         let viewStore = ViewStore(appStore)
         
         viewStore.send(AppAction.chessGame(.subscribe))
         viewStore.send(AppAction.checkerboard(.subscribe))
+        viewStore.send(AppAction.gameCenter(.subscribe))
         
-        //viewStore.publisher.chessGame
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
+            window.rootViewController = UIHostingController(rootView:RootView(store:appStore))
             self.window = window
             window.makeKeyAndVisible()
         }

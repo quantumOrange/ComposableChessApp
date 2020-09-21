@@ -25,7 +25,7 @@ class ChessGameEnviroment:ChessGameEnviromentProtocol
     
     func sendTurnToGameCenter(board: Chessboard) -> Effect<ChessGameAction, Never>
     {
-        Effect.none
+        applicationEnviroment.sendTurnToGameCenter(chessboard:board)
     }
        
     func chessEnginePickMove(board: Chessboard) -> Effect<ChessGameAction, Never>
