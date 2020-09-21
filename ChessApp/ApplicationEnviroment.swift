@@ -32,6 +32,12 @@ final class ApplicationEnviroment {
         }
     }
     
+    public func subscribe<LocalAction>(localAction:CasePath<AppAction, LocalAction>) -> Effect<LocalAction,Never> {
+        subscribeToAppActions()
+                 .compactMap { localAction.extract(from: $0) }
+                 .eraseToEffect()
+     }
+    
     func didSuccefullyApplyMove() -> Effect<ChessGameAction, Never> {
         return Effect.fireAndForget
         {

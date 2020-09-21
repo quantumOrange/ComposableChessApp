@@ -55,15 +55,6 @@ class ChessGameEnviroment:ChessGameEnviromentProtocol
     }
     
     func subscribeToApplication() ->  Effect<ChessGameAction, Never>{
-        let effect = applicationEnviroment.subscribeToAppActions()
-        
-        return effect
-                .compactMap
-                {   appAction in
-                    guard case AppAction.chessGame(let chessAction ) = appAction else { return nil }
-                    return chessAction
-                }
-                .eraseToEffect()
-        
+        return applicationEnviroment.subscribe(localAction:/AppAction.chessGame)
     }
 }

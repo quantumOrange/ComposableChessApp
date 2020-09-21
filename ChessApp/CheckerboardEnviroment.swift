@@ -20,15 +20,7 @@ class CheckerboardEnviroment:CheckerboardEnviromentProtocol {
     }
     
     func subscribe() -> Effect<CheckerboardAction, Never> {
-        let effect = applicationEnviroment.subscribeToAppActions(
-        )
-        return effect
-                .compactMap
-                {   appAction in
-                    guard case AppAction.checkerboard(let checkerboarAction ) = appAction else { return nil }
-                    return checkerboarAction
-                }
-                .eraseToEffect()
+        return applicationEnviroment.subscribe(localAction:/AppAction.checkerboard)
     }
     
     func playMove(move: Move) -> Effect<CheckerboardAction, Never> {
