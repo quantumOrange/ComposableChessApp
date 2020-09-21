@@ -69,7 +69,7 @@ public struct BoardView<Game:CheckerboardGame> : View {
 
 
 
-let mockCheckerBoardState = CheckerboardState<DefaultGame>(game:DefaultGame(),turn:.white,boardState: BoardState())
+let mockCheckerBoardState = CheckerboardState<DefaultGame>(game:DefaultGame(),turn:.white,boardState: CheckerBoardUIState())
 
 
 //public let mockCheckerboardEnviroment = CheckerboardEnviroment(

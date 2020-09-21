@@ -15,6 +15,7 @@ enum NavAction {
 }
 
 struct NavState:Equatable {
+    
     enum Destinations:Equatable {
         case home
         case chessgameview

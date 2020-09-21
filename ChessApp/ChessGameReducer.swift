@@ -25,37 +25,11 @@ enum ChessGameAction {
     case setOnlineGame(Chessboard,PlayerColor)
 }
 
-
 protocol ChessGameEnviromentProtocol {
     func didSuccefullyApplyMove() -> Effect<ChessGameAction,Never>
     func sendTurnToGameCenter(board:Chessboard) -> Effect<ChessGameAction,Never>
     func chessEnginePickMove(board:Chessboard) -> Effect<ChessGameAction,Never>
     func subscribeToApplication() -> Effect<ChessGameAction,Never>
-}
-
-func requestNextTurn(game:ChessGameState, enviroment:ChessGameEnviromentProtocol) -> Effect<ChessGameAction,Never> {
-    let playerType =  game.players.player(for:game.board.whosTurnIsItAnyway)
-    
-    switch playerType {
-    case .none:
-        //Mabe fatal error? what should we do here?
-        print("Player type none! probaly bad")
-        
-        return Effect.none
-    case .appUser:
-        //wait for user, nothing to do here
-        print("It is now the local players turn, so we just need to wait for them to do something.")
-        return Effect.none
-    case .remote:
-        print("We must have just applied the local players move.")
-        print("It is now the remote players turn, as far as we  are concerned.")
-        print("We need to send the board to the gamecenter and pass  the turn to them.")
-
-        return enviroment.sendTurnToGameCenter(board: game.board)
-    case .computer:
-        //let board = game.board
-        return enviroment.chessEnginePickMove(board: game.board)
-    }
 }
 
 let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnviromentProtocol>
@@ -131,4 +105,28 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
 }
 
 
+func requestNextTurn(game:ChessGameState, enviroment:ChessGameEnviromentProtocol) -> Effect<ChessGameAction,Never> {
+    let playerType =  game.players.player(for:game.board.whosTurnIsItAnyway)
+    
+    switch playerType {
+    case .none:
+        //Mabe fatal error? what should we do here?
+        print("Player type none! probaly bad")
+        
+        return Effect.none
+    case .appUser:
+        //wait for user, nothing to do here
+        print("It is now the local players turn, so we just need to wait for them to do something.")
+        return Effect.none
+    case .remote:
+        print("We must have just applied the local players move.")
+        print("It is now the remote players turn, as far as we  are concerned.")
+        print("We need to send the board to the gamecenter and pass  the turn to them.")
+
+        return enviroment.sendTurnToGameCenter(board: game.board)
+    case .computer:
+        //let board = game.board
+        return enviroment.chessEnginePickMove(board: game.board)
+    }
+}
 

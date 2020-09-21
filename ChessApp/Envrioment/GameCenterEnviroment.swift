@@ -18,6 +18,10 @@ extension Chessboard:TwoPlayerGame {
 }
 
 class GameCenterEnviroment:GameCenterEnviromentProtocol {
+    func readyToPlay() -> Effect<GameCenterClientAction<Chessboard>, Never> {
+        return applicationEnviroment.showGame()
+    }
+    
    
     let applicationEnviroment:ApplicationEnviroment
        

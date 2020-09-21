@@ -23,13 +23,13 @@ prefix func !(v:Player)-> Player {
     }
 }
 
-
 public protocol TwoPlayerGame:Codable {
     static func start() -> Self
     func currentPlayerTurn() -> Player
 }
 
 public struct GameCenterMatchState:Equatable {
+    public var userGameRequestPending = false
     public var isAuthenticated = false
     public var isMatched = false
     public var isSendingTurn = false
@@ -37,7 +37,6 @@ public struct GameCenterMatchState:Equatable {
     
     public init() {}
 }
-
 
 public struct GameCenterState<Game:TwoPlayerGame>
 {
@@ -59,6 +58,7 @@ extension GameCenterState {
 
 public enum GameCenterClientAction<Game:TwoPlayerGame> {
     case subscribe
+    case userRequestsGame
     case authenticate
     case authenticated
     case findMatch
@@ -73,6 +73,7 @@ public protocol GameCenterEnviromentProtocol {
     associatedtype Game:TwoPlayerGame
     var client:GameCenterClient<Game> {get}
     func subscribe() ->  Effect<GameCenterClientAction<Game>,Never>
+    func readyToPlay() ->  Effect<GameCenterClientAction<Game>,Never>
 }
 
 public func gameReducer<Enviroment:GameCenterEnviromentProtocol>( state:inout GameCenterState<Enviroment.Game>, action:GameCenterClientAction<Enviroment.Game>, environment:Enviroment) -> Effect<GameCenterClientAction<Enviroment.Game>,Never> {
@@ -86,8 +87,16 @@ public func gameReducer<Enviroment:GameCenterEnviromentProtocol>( state:inout Ga
         return environment.client.getMatch()
     case .authenticated:
         state.matchState.isAuthenticated = true
+        if state.matchState.userGameRequestPending {
+            return environment.client.getMatch()
+        }
     case .foundMatch:
         state.matchState.isMatched = true
+        
+        if state.matchState.userGameRequestPending {
+            state.matchState.userGameRequestPending = false
+            return environment.readyToPlay()
+        }
         
     case .sendTurn(let game):
         return environment.client.sendTurnEvent(game: game)
@@ -99,6 +108,14 @@ public func gameReducer<Enviroment:GameCenterEnviromentProtocol>( state:inout Ga
     
     case .subscribe:
         return environment.subscribe()
+    case .userRequestsGame:
+        state.matchState.userGameRequestPending = true
+        if state.matchState.isAuthenticated {
+            return environment.client.getMatch()
+        }
+        else {
+            return environment.client.requestAuthorization()
+        }
     }
     
     return Effect.none

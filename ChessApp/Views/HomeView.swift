@@ -28,7 +28,7 @@ struct HomeView: View
                         Text("Play Computer")
                     }
                     
-                    Button(action: {})
+                    Button(action: { viewStore.send(.gameCenter(.userRequestsGame )) })
                     {
                         Text("Play Online")
                     }

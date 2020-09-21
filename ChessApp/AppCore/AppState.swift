@@ -16,23 +16,13 @@ struct AppState: Equatable {
     var nav:NavState  = NavState()
     var chessGame:ChessGameState = ChessGameState()
     
-    var boardstate:BoardState = BoardState()
+    var boardstate:CheckerBoardUIState = CheckerBoardUIState()
     
     var playerPointOfView:CheckerboardView.PlayerColor = .white
     
     var gameCenterMatchState:GameCenterMatchState = GameCenterMatchState()
 }
 
-extension AppState {
-    var gameCenterState:GameCenterState<Chessboard>{
-        get {GameCenterState(game:chessGame.board,matchState:gameCenterMatchState,localPlayerDisplayName: "mR local",remotePlayerDisplayName: "mr remote" )}
-        
-        set {
-            gameCenterMatchState = newValue.matchState
-            chessGame.board = newValue.game
-        }
-        
-    }
-}
+
 
 

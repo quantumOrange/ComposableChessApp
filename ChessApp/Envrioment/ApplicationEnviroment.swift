@@ -52,6 +52,14 @@ final class ApplicationEnviroment {
         }
     }
     
+    func showGame() -> Effect<GameCenterClientAction<Chessboard>, Never> {
+        return Effect.fireAndForget
+        {
+            self.send(action:.nav(.setShowChessgame(true)))
+        }
+    }
+    
+    
     func applyMove(move:CheckerboardView.Move) -> Effect<CheckerboardAction,Never>
     {
         return Effect.fireAndForget

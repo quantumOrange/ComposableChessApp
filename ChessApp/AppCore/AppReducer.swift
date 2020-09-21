@@ -12,14 +12,7 @@ import CheckerboardView
 import ComposableArchitecture
 import CAGameCenter
 
-extension AppState {
-    var chessboardState:CheckerboardState<ChessGameState> {
-        get { CheckerboardState(game: chessGame, turn: chessGame.board.whosTurnIsItAnyway.checkerboardColor , boardState: boardstate ) }
-        set { boardstate = newValue.boardState
-            chessGame = newValue.game
-        }
-    }
-}
+
 
 let chessboardReducer = Reducer<CheckerboardState<ChessGameState>, CheckerboardAction, CheckerboardEnviroment> (checkerBoardReducer)
 

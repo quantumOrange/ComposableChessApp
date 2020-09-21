@@ -32,9 +32,7 @@ public protocol CheckerboardEnviromentProtocol
     func playMove(move:Move) -> Effect<CheckerboardAction,Never> // should return a .clear
 }
 
-
-
-public struct BoardState:Equatable {
+public struct CheckerBoardUIState:Equatable {
     var playerPointOfView:PlayerColor = .white
     var selectedSquare:CheckerboardSquare? = nil
     var validDestinationSquares:[CheckerboardSquare] = []
@@ -69,9 +67,9 @@ public struct CheckerboardState<Game:CheckerboardGame>:Equatable {
             return userPlaysBlack
         }
     }
-    public var boardState:BoardState
+    public var boardState:CheckerBoardUIState
     
-    public init(game:Game,turn:PlayerColor, boardState:BoardState){
+    public init(game:Game,turn:PlayerColor, boardState:CheckerBoardUIState){
         //self.placedPieces = placedPieces
         self.game = game
         self.turn = turn
