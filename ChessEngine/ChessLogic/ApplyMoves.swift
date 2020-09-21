@@ -8,6 +8,23 @@
 
 import Foundation
 
+public func applyMoveIfValid(board:inout Chessboard,move:Move)->Bool{
+    guard let validatedMove = validate(chessboard:board, move:move) else { return false }
+    
+    board.apply(move:validatedMove)
+    board.gamePlayState = gamePlayState(chessboard: board)
+    return true
+}
+
+public func applyMoveIfValid(board:inout Chessboard,move:ChessMove)->Bool{
+    guard let validatedMove = validate(chessboard:board, move:move) else { return false }
+    
+    board.apply(move:validatedMove)
+    board.gamePlayState = gamePlayState(chessboard: board)
+    return true
+}
+
+
 func apply(move:Move, to board:Chessboard) -> Chessboard? {
      guard let chessMove = validate(chessboard: board, move: move) else { return nil }
     return  apply(move:chessMove, to:board)

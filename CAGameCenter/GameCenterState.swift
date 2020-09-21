@@ -29,21 +29,32 @@ public protocol TwoPlayerGame:Codable {
     func currentPlayerTurn() -> Player
 }
 
+public struct GameCenterMatchState:Equatable {
+    public var isAuthenticated = false
+    public var isMatched = false
+    public var isSendingTurn = false
+    public var firstMover:Player?  // == white
+    
+    public init() {}
+}
+
+
 public struct GameCenterState<Game:TwoPlayerGame>
 {
-    var isAuthenticated = false
-    var isMatched = false
-    
-    var isSendingTurn = false
-    
-    var firstMover:Player?  // == white
-    
-    var localPlayerDisplayName:String?
-    
-    var remotePlayerDisplayName:String?
-    
-    var game:Game
-    
+    public var matchState:GameCenterMatchState
+    public var localPlayerDisplayName:String?
+    public var remotePlayerDisplayName:String?
+    public var game:Game
+}
+
+extension GameCenterState {
+    public init( game:Game, matchState:GameCenterMatchState,   localPlayerDisplayName:String,remotePlayerDisplayName:String)
+    {
+        self.matchState = matchState
+        self.localPlayerDisplayName = localPlayerDisplayName
+        self.remotePlayerDisplayName = remotePlayerDisplayName
+        self.game = game
+    }
 }
 
 public enum GameCenterClientAction<Game:TwoPlayerGame> {
@@ -51,12 +62,10 @@ public enum GameCenterClientAction<Game:TwoPlayerGame> {
     case authenticated
     case findMatch
     case foundMatch
-    
     case sendTurn(Game)
     case playerRceivedTurnEvent(Game)
     case gameOverWithWinner(Player?)
 }
-
 
 
 public func gameReducer<Game:TwoPlayerGame>( state:inout GameCenterState<Game>, action:GameCenterClientAction<Game>, environment:GameCenterClient<Game>) -> Effect<GameCenterClientAction<Game>,Never> {
@@ -68,17 +77,17 @@ public func gameReducer<Game:TwoPlayerGame>( state:inout GameCenterState<Game>, 
     case .findMatch:
         return environment.getMatch()
     case .authenticated:
-        state.isAuthenticated = true
+        state.matchState.isAuthenticated = true
     case .foundMatch:
-        state.isMatched = true
+        state.matchState.isMatched = true
         
     case .sendTurn(let game):
         return environment.sendTurnEvent(game: game)
     case .playerRceivedTurnEvent(let game):
         state.game = game
     case .gameOverWithWinner(_):
-        state.isSendingTurn = false
-        state.isMatched = false
+        state.matchState.isSendingTurn = false
+        state.matchState.isMatched = false
     
     }
     

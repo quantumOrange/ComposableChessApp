@@ -14,7 +14,6 @@ import SwiftUI
 import Combine
 
 
-
 public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
     var rootVC:UIViewController!
     var matchVC:GKTurnBasedMatchmakerViewController?
@@ -23,7 +22,7 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
     var currentMatch:GKTurnBasedMatch?
     var playerListener:PlayerListener<Game>?
     
-   // var matchmakerDelegateCallback:(Result<GameCenterClientAction<Game>,Error>)->() = { _ in fatalError()}
+    //var matchmakerDelegateCallback:(Result<GameCenterClientAction<Game>,Error>)->() = { _ in fatalError()}
     
     
     func present(viewController:UIViewController){
@@ -178,32 +177,7 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
             
             return AnyCancellable {}
         }
-        /*
-       GKLocalPlayer.local.authenticateHandler =
-       {   gcAuthVC, error in
-           print("Run game center authenticateHandler callback")
-           if GKLocalPlayer.local.isAuthenticated
-           {
-               print("Local Player is Authenticated")
-               callback(.endo(.authenticated))
-           }
-           else if let vc = gcAuthVC
-           {
-               print("Local Player is not Authenticated - but we have Auth VC")
-               callback(.endo(.presentAuthVC(vc)))
-           }
-           else {
-               print("Local Player is not Authenticated and we do not have Auth VC")
-           }
-           
-           if let error = error
-           {
-               print("Error authentication to GameCenter: " +
-                       "\(error.localizedDescription)")
-           }
- 
-       }
-        */
+
         return effect
     }
     

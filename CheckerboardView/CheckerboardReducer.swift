@@ -26,16 +26,13 @@ import ComposableArchitecture
 ///       }
 ///     }
 ///
-public struct CheckerboardEnviroment<Game:CheckerboardGame>{
-    public init(requestMove:@escaping (Game) -> Effect<CheckerboardAction<Game>,Never>){
-      //  self.playMove = playMove
-      //  self.selected = selected
-        self.requestMove = requestMove
-    }
-    var requestMove:(Game) -> Effect<CheckerboardAction<Game>,Never> // should return a .clear
-    // var playMove:(Move) -> Effect<CheckerboardAction,Never> // should return a .clear
-    // var selected:(CheckerboardSquare) -> Effect<CheckerboardAction,Never>  // should return a .validDestinationSquares
+public protocol CheckerboardEnviromentProtocol
+{
+    func subscribe() -> Effect<CheckerboardAction,Never>
+    func playMove(move:Move) -> Effect<CheckerboardAction,Never> // should return a .clear
 }
+
+
 
 public struct BoardState:Equatable {
     var playerPointOfView:PlayerColor = .white
@@ -82,11 +79,12 @@ public struct CheckerboardState<Game:CheckerboardGame>:Equatable {
     }
 }
 
-public enum CheckerboardAction<Game> {
+public enum CheckerboardAction {
     case tap(CheckerboardSquare)
     case clear
     case flipBoard(PlayerColor)
-    case setGame(Game)
+    case subscribe
+    //case setGame(Game)
     //case validDestinationSquares([CheckerboardSquare])
 }
 
@@ -103,13 +101,13 @@ struct DefaultGame:CheckerboardGame {
     var placedPieces:[ PlacedCheckerPiece<DefaultPiece>] { [] }
 }
 
-let defaultCheckerBoardReducer = Reducer<CheckerboardState<DefaultGame>, CheckerboardAction, CheckerboardEnviroment> (checkerBoardReducer)
+let defaultCheckerBoardReducer = Reducer<CheckerboardState<DefaultGame>, CheckerboardAction, CheckerboardEnviromentProtocol> (checkerBoardReducer)
 
-func checkerBoardReducer2<Game>(  ) -> Reducer<CheckerboardState<Game>, CheckerboardAction<Game>, CheckerboardEnviroment<Game>> {
+func checkerBoardReducer2<Game>(  ) -> Reducer<CheckerboardState<Game>, CheckerboardAction, CheckerboardEnviromentProtocol> {
     fatalError()
 }
 
-public func checkerBoardReducer<Game>( state:inout CheckerboardState<Game>, action:CheckerboardAction<Game>, environment:CheckerboardEnviroment<Game>) -> Effect<CheckerboardAction<Game>, Never> {
+public func checkerBoardReducer<Game>( state:inout CheckerboardState<Game>, action:CheckerboardAction, environment:CheckerboardEnviromentProtocol) -> Effect<CheckerboardAction, Never> {
 
     func isYourPiece(state:CheckerboardState<Game>, square:CheckerboardSquare) ->Bool{
         guard let placedPiece = state.game.placedPieces.first(where:{ $0.square == square })  else { return false }
@@ -152,11 +150,13 @@ public func checkerBoardReducer<Game>( state:inout CheckerboardState<Game>, acti
                   //We have a selected square already
                   let move =  Move(from: selectedSquare,to:square)
                 
+                  return environment.playMove(move: move)
+                /*
                 if state.game.applyMove(move: move) {
                     clear()
                     return environment.requestMove(state.game)
                 }
-                  
+                  */
                   /*
                   let effect = Effect<Output<ChessboardAction,ChessboardExoAction>>.sync(work: {
                       return .exo(.move(move))
@@ -174,11 +174,10 @@ public func checkerBoardReducer<Game>( state:inout CheckerboardState<Game>, acti
       case .flipBoard:
           //state.userHasFlippedBoard.toggle()
           state.boardState.playerPointOfView =  !state.boardState.playerPointOfView
-    case .setGame(let game):
-        print("Set new game")
-        state.game = game
     //case .validDestinationSquares(let squares):
         //state.boardState.validDestinationSquares = squares
+    case .subscribe:
+        return environment.subscribe()
     }
     return .none
 

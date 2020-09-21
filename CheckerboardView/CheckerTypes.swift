@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum PlayerColor {
+public enum PlayerColor:Equatable {
     case white, black
 }
 

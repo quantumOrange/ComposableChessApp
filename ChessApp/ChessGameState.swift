@@ -35,8 +35,5 @@ struct ChessGameState:Equatable {
     var board:Chessboard =  Chessboard.start()
     var players:PlayerTypes = PlayerTypes(white:.none, black: .none)
     
-    init() {
-       // self.board = board
-       // self.players = players
-    }
+    init() {}
 }

@@ -9,22 +9,30 @@
 import Foundation
 import ChessEngine
 import CheckerboardView
+import CAGameCenter
 
-struct AppState {
+struct AppState: Equatable {
     var user = User.david()
-    
+    var nav:NavState  = NavState()
     var chessGame:ChessGameState = ChessGameState()
     
     var boardstate:BoardState = BoardState()
-    //var selectedSquare:ChessboardSquare?
     
-    //var playerPointOfView:PlayerColor = .white
+    var playerPointOfView:CheckerboardView.PlayerColor = .white
     
+    var gameCenterMatchState:GameCenterMatchState = GameCenterMatchState()
 }
 
-
-
-
-
+extension AppState {
+    var gameCenterState:GameCenterState<Chessboard>{
+        get {GameCenterState(game:chessGame.board,matchState:gameCenterMatchState,localPlayerDisplayName: "mR local",remotePlayerDisplayName: "mr remote" )}
+        
+        set {
+            gameCenterMatchState = newValue.matchState
+            chessGame.board = newValue.game
+        }
+        
+    }
+}
 
 

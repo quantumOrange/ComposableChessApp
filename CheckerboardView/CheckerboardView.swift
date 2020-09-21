@@ -41,12 +41,12 @@ extension CheckerboardState {
 
 public struct BoardView<Game:CheckerboardGame> : View {
     
-    public init(store:Store<CheckerboardState<Game>,CheckerboardAction<Game>>,width:CGFloat) {
+    public init(store:Store<CheckerboardState<Game>,CheckerboardAction>,width:CGFloat) {
         self.store = store
         self.width = width
     }
     
-   let store: Store<CheckerboardState<Game>,CheckerboardAction<Game>>
+   let store: Store<CheckerboardState<Game>,CheckerboardAction>
   
     let width:CGFloat
     
@@ -73,10 +73,18 @@ let mockCheckerBoardState = CheckerboardState<DefaultGame>(game:DefaultGame(),tu
 
 
 //public let mockCheckerboardEnviroment = CheckerboardEnviroment(
+struct MockCheckerboardEnviroment: CheckerboardEnviromentProtocol {
+    
+    func subscribe() -> Effect<CheckerboardAction, Never> {
+        return Effect.none
+    }
+    
+    func playMove(move: Move) -> Effect<CheckerboardAction, Never> {
+        return Effect.none
+    }
 
-let mockCheckerboardEnviroment = CheckerboardEnviroment<DefaultGame>(requestMove: { game in
-    return Effect(value: .setGame(game))
-})
+}
+let mockCheckerboardEnviroment = MockCheckerboardEnviroment()
 /*Game
 let mockCheckerboardEnviroment = CheckerboardEnviroment(playMove: { move in
     

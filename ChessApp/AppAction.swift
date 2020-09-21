@@ -9,13 +9,15 @@
 import Foundation
 import ChessEngine
 import CheckerboardView
+import CAGameCenter
 
 enum AppAction {
-    
-    case chess(CheckerboardAction<ChessGameState>)
-    // case nav(NavAction)
-    // case gameCenter(GameCenterAction)
-    // case clock(ChessClockAction)
+    case chessGame(ChessGameAction)
+    case checkerboard(CheckerboardAction)
+    case nav(NavAction)
+    case gameCenter(GameCenterClientAction<Chessboard>)
 }
+
+
 
 

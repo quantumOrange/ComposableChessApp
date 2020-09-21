@@ -15,9 +15,9 @@ struct TappableBoardState:Equatable{
     var playerPointOfView:PlayerColor
 }
 
-struct TappableCheckersView<Game>: View {
+struct TappableCheckersView: View {
     
-    var store: Store<TappableBoardState,CheckerboardAction<Game>>
+    var store: Store<TappableBoardState,CheckerboardAction>
     
     let width:CGFloat
     

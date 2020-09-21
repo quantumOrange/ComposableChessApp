@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct User:Codable {
+public struct User:Codable,Equatable {
     let id:Int
     let name:String
     let rating:Float

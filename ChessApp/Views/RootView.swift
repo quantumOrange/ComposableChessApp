@@ -11,30 +11,21 @@ import ComposableArchitecture
 import CheckerboardView
 import ChessEngine
 
-extension ChessEngine.PlayerColor {
-    var checkerboardColor: CheckerboardView.PlayerColor {
-        switch self {
-        case .white:
-            return .white
-        case .black:
-            return .black
-        }
-    }
-}
-
-
 
 struct RootView: View {
+    let store:Store<AppState,AppAction>
     
-    let store = Store(initialState: AppState(), reducer: appReducer, environment: AppEnviroment())
+    init(store:Store<AppState,AppAction>) {
+        self.store = store
+    }
     
     var body: some View {
-        ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.chess))
+        HomeView(store:self.store)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        RootView()
+        RootView(store:Store(initialState: AppState(), reducer: appReducer, environment: Enviroment()))
     }
 }

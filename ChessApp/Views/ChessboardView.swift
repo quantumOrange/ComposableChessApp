@@ -14,17 +14,15 @@ import ComposableArchitecture
 
 
 struct ChessboardView: View {
-    let store: Store<CheckerboardState<ChessGameState>,CheckerboardAction<ChessGameState>>
+    let store: Store<CheckerboardState<ChessGameState>,CheckerboardAction>
     
     var body: some View {
         GeometryReader { geom in
             
             BoardView(store: self.store, width: geom.size.width)
         }
-        
     }
 }
-
 
 /*************************************************/
 /****************  Preview    ************************/

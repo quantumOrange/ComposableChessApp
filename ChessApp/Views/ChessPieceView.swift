@@ -10,7 +10,6 @@ import SwiftUI
 import CheckerboardView
 import ChessEngine
 
-
 extension ChessPiece:CheckerPiece {
     public var playerColor: CheckerboardView.PlayerColor {
         switch self.player {
@@ -59,7 +58,6 @@ public struct ChessPieceView : View
            return ChessPiece(player:.black, kind: piece.kind, id:piece.id).symbol
        }
 }
-
 
 /******************************************************/
 /******************************************************/
