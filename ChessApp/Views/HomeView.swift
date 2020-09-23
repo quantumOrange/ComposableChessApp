@@ -11,7 +11,7 @@ import SwiftUI
 struct HomeView: View
 {
     let store: Store<AppState,AppAction>
-    
+    let devMode = false
     var body: some View
     {
         WithViewStore(self.store)
@@ -32,6 +32,24 @@ struct HomeView: View
                     {
                         Text("Play Online")
                     }
+                    
+                    if devMode {
+                        Button(action: { viewStore.send(.gameCenter(.authenticate )) })
+                        {
+                            Text("Authenticate")
+                        }
+                        
+                        Button(action: { viewStore.send(.gameCenter(.findMatch )) })
+                        {
+                            Text("Get Match")
+                        }
+                        
+                        Button(action: { viewStore.send(.nav(.setShowChessgame(true) )) })
+                        {
+                            Text("Show board")
+                        }
+                    }
+                    
                     
                     NavigationLink(destination: ChessGameView(store: self.store), isActive: viewStore.binding( get:{ $0.nav.showChessgame}  ,send: { AppAction.nav(.setShowChessgame($0)) } ) ){
                         EmptyView()

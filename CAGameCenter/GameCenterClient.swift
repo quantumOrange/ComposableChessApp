@@ -44,7 +44,6 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
     public func lose() -> Effect<GameCenterClientAction<Game>,Never> {
         guard let match = currentMatch else
         {
-          //completion(GameCenterHelperError.matchNotFound)
             print("Ooops - we are not sending the turn becuase we don't yet have a match. This is probaly not good.")
             return Effect.none
         }
@@ -58,7 +57,6 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
     public func win() -> Effect<GameCenterClientAction<Game>,Never> {
         guard let match = currentMatch else
         {
-          //completion(GameCenterHelperError.matchNotFound)
             print("Ooops - we are not sending the turn becuase we don't yet have a match. This is probaly not good.")
             return Effect.none
         }
@@ -88,7 +86,7 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
     public func sendTurnEvent(game:Game) -> Effect<GameCenterClientAction<Game>,Never> {
         guard let match = currentMatch else
         {
-          //completion(GameCenterHelperError.matchNotFound)
+          
             print("Ooops - we are not sending the turn becuase we don't yet have a match. This is probaly not good.")
             return Effect.none
         }
@@ -96,22 +94,12 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
         return Effect.fireAndForget {
             let next = match
                             .participants
-                            .filter{
-                                //$0.player.i
-                                $0 != match.currentParticipant
-                                }
-                
-                print(next)
-               // let status = next.first!.status
-                
-               // let nextparticpent = next.first!
-                
-                //nextparticpent.player
-                let nextplayer = next.first!.player!
-                print("match:Curret partcipemnt \(match.currentParticipant?.player?.displayName)")
-                print("sending turn to :\(nextplayer.displayName)")
+                            .filter{ $0 != match.currentParticipant }
                 
                 assert(next.count == 1)
+                let nextplayer = next.first!.player!
+                
+                
             
                 do
                 {
@@ -123,13 +111,13 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
                     turnTimeout: GKExchangeTimeoutDefault,
                     match: encodeMatch,
                     completionHandler:  {   error in
-                        //callback(.endo(.completedSendingTurn(error)))
+                        //callback(.completedSendingTurn(error))
                                         }
                     )
                 }
                 catch
                 {
-                   // callback(.endo(.completedSendingTurn(error)))
+                   // callback(.completedSendingTurn(error))
                 }
         }
     }
@@ -138,33 +126,37 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
     {
         let effect = Effect<GameCenterClientAction<Game>, Never>.run
         {   subscriber  in
-           // self.subscriber = subscriber
+
             self.playerListener = PlayerListener(subscriber: subscriber)
             GKLocalPlayer.local.register(self.playerListener!)
             GKLocalPlayer.local.authenticateHandler =
                 { [weak self]   gcAuthVC, error in
-                      print("Run game center authenticateHandler callback")
+                
+                    
+                    if let error = error
+                    {
+                        print("Error authentication to GameCenter!!!: " +
+                                "\(error.localizedDescription)")
+                       // TODO: handle errors
+                        // subscriber.send(.authenticationError(error)
+                      return
+                    }
+                    
                       if GKLocalPlayer.local.isAuthenticated
                       {
-                          print("Local Player is Authenticated")
-                        //callback(.success(.authenticated))
+                       print("Local Player is Authenticated")
+                       subscriber.send(.authenticated)
+
                       }
                       else if let vc = gcAuthVC
                       {
-                          print("Local Player is not Authenticated - but we have Auth VC")
-                          //callback(.endo(.presentAuthVC(vc)))
                         self?.rootVC.present(vc,animated: true)
                       }
                       else {
                           print("Local Player is not Authenticated and we do not have Auth VC")
                       }
                       
-                      if let error = error
-                      {
-                          print("Error authentication to GameCenter: " +
-                                  "\(error.localizedDescription)")
-                        //callback(.error(error))
-                      }
+                      
             
                   }
             
@@ -179,30 +171,21 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
         
         Effect.future
         { [weak self] callback in
-        ///       subscriber.send(MPMediaLibrary.authorizationStatus())
-        ///
-        ///       guard MPMediaLibrary.authorizationStatus() == .notDetermined else {
-        ///         subscriber.send(completion: .finished)
-        ///         return AnyCancellable {}
-        ///       }
-        ///
-        ///       MPMediaLibrary.requestAuthorization { status in
-        ///         subscriber.send(status)
-        ///         subscriber.send(completion: .finished)
-        ///       }
-        ///       return AnyCancellable {
-        ///         // Typically clean up resources that were created here, but this effect doesn't
-        ///         // have any.
-        ///       }
-        ///     }
+
+            assert(Thread.isMainThread, "Not on the main thread!!!")
+            print("So far so good")
             let request = GKMatchRequest()
             request.maxPlayers = 2
             request.minPlayers = 2
             request.inviteMessage = "Play my fun game"
             self?.matchmakerDelegate = TurnBasedMatchmakerDelegate(callback:callback,client: self!)
-            self?.matchVC =  GKTurnBasedMatchmakerViewController(matchRequest: request)
-            self?.matchVC?.turnBasedMatchmakerDelegate = self?.matchmakerDelegate
             
+            let turnBasedMatchmakerVC = GKTurnBasedMatchmakerViewController(matchRequest: request)
+            turnBasedMatchmakerVC.showExistingMatches = false
+            
+            turnBasedMatchmakerVC.turnBasedMatchmakerDelegate = self?.matchmakerDelegate
+            self?.matchVC = turnBasedMatchmakerVC
+            self?.rootVC.present( turnBasedMatchmakerVC, animated: true)
         }
         
     }

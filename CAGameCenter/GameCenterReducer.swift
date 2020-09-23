@@ -46,6 +46,7 @@ public struct GameCenterState<Game:TwoPlayerGame>
     public var game:Game
 }
 
+
 extension GameCenterState {
     public init( game:Game, matchState:GameCenterMatchState,   localPlayerDisplayName:String,remotePlayerDisplayName:String)
     {
@@ -56,7 +57,7 @@ extension GameCenterState {
     }
 }
 
-public enum GameCenterClientAction<Game:TwoPlayerGame> {
+public enum GameCenterClientAction<Game> {
     case subscribe
     case userRequestsGame
     case authenticate
