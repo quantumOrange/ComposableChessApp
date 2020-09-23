@@ -10,6 +10,7 @@ import Foundation
 import ChessEngine
 import CAGameCenter
 import ComposableArchitecture
+import UIKit
 
 extension Chessboard:TwoPlayerGame {
     public func currentPlayerTurn() -> Player {

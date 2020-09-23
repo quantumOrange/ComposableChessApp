@@ -78,6 +78,7 @@
 		54806A1324884A7600A91153 /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54806A1024884A7600A91153 /* AppReducer.swift */; };
 		54806A1424884A7600A91153 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54806A1124884A7600A91153 /* AppState.swift */; };
 		54806A1524884A7600A91153 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54806A1224884A7600A91153 /* AppAction.swift */; };
+		548DE2B0251B4B1D00F37A10 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548DE2AF251B4B1D00F37A10 /* GameKit.framework */; };
 		54BE6A8924D9A31F005D9D82 /* Enviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8824D9A31F005D9D82 /* Enviroment.swift */; };
 		54BE6A8B24E1AD72005D9D82 /* ChessGameState+Checkerboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8A24E1AD71005D9D82 /* ChessGameState+Checkerboard.swift */; };
 		54BE6A8D24E3F51C005D9D82 /* ChessGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */; };
@@ -326,6 +327,8 @@
 		54806A1024884A7600A91153 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		54806A1124884A7600A91153 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		54806A1224884A7600A91153 /* AppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
+		548DE2AF251B4B1D00F37A10 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		548DE2B1251B4B7100F37A10 /* ChessApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChessApp.entitlements; sourceTree = "<group>"; };
 		54BE6A8824D9A31F005D9D82 /* Enviroment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enviroment.swift; sourceTree = "<group>"; };
 		54BE6A8A24E1AD71005D9D82 /* ChessGameState+Checkerboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChessGameState+Checkerboard.swift"; sourceTree = "<group>"; };
 		54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessGameState.swift; sourceTree = "<group>"; };
@@ -345,6 +348,7 @@
 				5480698724883AB100A91153 /* ChessEngine.framework in Frameworks */,
 				548069A924883ACF00A91153 /* CheckerboardView.framework in Frameworks */,
 				548069CB24883AFA00A91153 /* CAGameCenter.framework in Frameworks */,
+				548DE2B0251B4B1D00F37A10 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +518,7 @@
 		548069212488388100A91153 /* ChessApp */ = {
 			isa = PBXGroup;
 			children = (
+				548DE2B1251B4B7100F37A10 /* ChessApp.entitlements */,
 				54115A622519235F002DF01D /* AppCore */,
 				54115A592518C51A002DF01D /* ChessGameReducer.swift */,
 				54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */,
@@ -567,6 +572,7 @@
 		5480696A24883A6200A91153 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				548DE2AF251B4B1D00F37A10 /* GameKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1408,6 +1414,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChessApp/ChessApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ChessApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 84Y3R5UC5Q;
@@ -1418,7 +1425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.crooks.ChessApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.decrooks.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1430,6 +1437,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChessApp/ChessApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ChessApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 84Y3R5UC5Q;
@@ -1440,7 +1448,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.crooks.ChessApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.decrooks.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

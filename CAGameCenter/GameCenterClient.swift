@@ -15,19 +15,12 @@ import Combine
 
 
 public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
-    var rootVC:UIViewController!
+    public var rootVC:UIViewController!
     var matchVC:GKTurnBasedMatchmakerViewController?
     var authVC:UIViewController? //authcv?
     var matchmakerDelegate:TurnBasedMatchmakerDelegate<Game>?
     var currentMatch:GKTurnBasedMatch?
     var playerListener:PlayerListener<Game>?
-    
-    //var matchmakerDelegateCallback:(Result<GameCenterClientAction<Game>,Error>)->() = { _ in fatalError()}
-    
-    
-    func present(viewController:UIViewController){
-        rootVC.present(viewController, animated: true)
-    }
     
     public func draw() -> Effect<GameCenterClientAction<Game>,Never> {
         guard let match = currentMatch else
@@ -149,7 +142,7 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
             self.playerListener = PlayerListener(subscriber: subscriber)
             GKLocalPlayer.local.register(self.playerListener!)
             GKLocalPlayer.local.authenticateHandler =
-                  {   gcAuthVC, error in
+                { [weak self]   gcAuthVC, error in
                       print("Run game center authenticateHandler callback")
                       if GKLocalPlayer.local.isAuthenticated
                       {
@@ -160,7 +153,7 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
                       {
                           print("Local Player is not Authenticated - but we have Auth VC")
                           //callback(.endo(.presentAuthVC(vc)))
-                        self.present(viewController: vc)
+                        self?.rootVC.present(vc,animated: true)
                       }
                       else {
                           print("Local Player is not Authenticated and we do not have Auth VC")
@@ -185,7 +178,7 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
     {
         
         Effect.future
-        { callback in
+        { [weak self] callback in
         ///       subscriber.send(MPMediaLibrary.authorizationStatus())
         ///
         ///       guard MPMediaLibrary.authorizationStatus() == .notDetermined else {
@@ -206,9 +199,9 @@ public class GameCenterClient<Game:TwoPlayerGame>:NSObject{
             request.maxPlayers = 2
             request.minPlayers = 2
             request.inviteMessage = "Play my fun game"
-            self.matchmakerDelegate = TurnBasedMatchmakerDelegate(callback:callback,client: self)
-            self.matchVC =  GKTurnBasedMatchmakerViewController(matchRequest: request)
-            self.matchVC?.turnBasedMatchmakerDelegate = self.matchmakerDelegate
+            self?.matchmakerDelegate = TurnBasedMatchmakerDelegate(callback:callback,client: self!)
+            self?.matchVC =  GKTurnBasedMatchmakerViewController(matchRequest: request)
+            self?.matchVC?.turnBasedMatchmakerDelegate = self?.matchmakerDelegate
             
         }
         

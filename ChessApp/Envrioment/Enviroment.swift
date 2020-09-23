@@ -11,8 +11,13 @@ import CheckerboardView
 import ChessEngine
 import ComposableArchitecture
 import CAGameCenter
-
-struct Enviroment {
+import UIKit
+class Enviroment {
+    var root:UIViewController? {
+        didSet {
+            gameCenterEnviroment.client.rootVC = root
+        }
+    }
     
     let applicationEnvirment = ApplicationEnviroment()
     let chessboardEnviroment:CheckerboardEnviroment

@@ -78,7 +78,6 @@ public protocol GameCenterEnviromentProtocol {
 
 public func gameReducer<Enviroment:GameCenterEnviromentProtocol>( state:inout GameCenterState<Enviroment.Game>, action:GameCenterClientAction<Enviroment.Game>, environment:Enviroment) -> Effect<GameCenterClientAction<Enviroment.Game>,Never> {
     
-
     switch action {
     
     case .authenticate:
