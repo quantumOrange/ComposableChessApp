@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5403054D251D011200F80C5A /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5403054C251D011200F80C5A /* ActionButton.swift */; };
+		54030561251D0DFD00F80C5A /* DevView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54030560251D0DFD00F80C5A /* DevView.swift */; };
 		54115A1525151657002DF01D /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A1425151656002DF01D /* PlayerView.swift */; };
 		54115A172515178E002DF01D /* ChessEngine+Checkerboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A162515178E002DF01D /* ChessEngine+Checkerboard.swift */; };
 		54115A1925151825002DF01D /* ChessGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A1825151824002DF01D /* ChessGameView.swift */; };
@@ -257,6 +258,7 @@
 
 /* Begin PBXFileReference section */
 		5403054C251D011200F80C5A /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		54030560251D0DFD00F80C5A /* DevView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevView.swift; sourceTree = "<group>"; };
 		54115A1425151656002DF01D /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		54115A162515178E002DF01D /* ChessEngine+Checkerboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChessEngine+Checkerboard.swift"; sourceTree = "<group>"; };
 		54115A1825151824002DF01D /* ChessGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameView.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 			isa = PBXGroup;
 			children = (
 				548069262488388100A91153 /* RootView.swift */,
+				54030560251D0DFD00F80C5A /* DevView.swift */,
 				54115A1C25152289002DF01D /* HomeView.swift */,
 				5403054C251D011200F80C5A /* ActionButton.swift */,
 				54115A6825192810002DF01D /* ChessGameView */,
@@ -1097,6 +1100,7 @@
 				54115A5E2518FC73002DF01D /* CheckerboardEnviroment.swift in Sources */,
 				5403054D251D011200F80C5A /* ActionButton.swift in Sources */,
 				548069252488388100A91153 /* SceneDelegate.swift in Sources */,
+				54030561251D0DFD00F80C5A /* DevView.swift in Sources */,
 				54115A1525151657002DF01D /* PlayerView.swift in Sources */,
 				54115A66251925BE002DF01D /* AppState+CheckerboardView.swift in Sources */,
 				54806A0F2488492A00A91153 /* ChessboardView.swift in Sources */,

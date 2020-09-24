@@ -14,13 +14,18 @@ import ChessEngine
 
 struct RootView: View {
     let store:Store<AppState,AppAction>
-    
+    let devMode = false
     init(store:Store<AppState,AppAction>) {
         self.store = store
     }
     
     var body: some View {
-        HomeView(store:self.store)
+        if devMode {
+            DevView(store: self.store)
+        }
+        else {
+            HomeView(store:self.store)
+        }
     }
 }
 
