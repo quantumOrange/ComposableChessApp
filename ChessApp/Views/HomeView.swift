@@ -18,48 +18,40 @@ struct HomeView: View
         { viewStore in
             NavigationView
             {
-                VStack(alignment: .center, spacing: 50)
+                VStack(alignment: .center)
                 {
-                    Button(action: {
-                        viewStore.send(.chessGame(.playComputerAs(.white, nil)) )
-                        viewStore.send(.nav(.setShowChessgame(true) ))
-                    })
-                    {
-                        Text("Play Computer")
-                    }
                     
-                    Button(action: { viewStore.send(.gameCenter(.userRequestsGame )) })
-                    {
-                        Text("Play Online")
-                    }
+                    Image("ChessHomeIcon")
                     
-                    if devMode {
-                        Button(action: { viewStore.send(.gameCenter(.authenticate )) })
-                        {
-                            Text("Authenticate")
-                        }
-                        
-                        Button(action: { viewStore.send(.gameCenter(.findMatch )) })
-                        {
-                            Text("Get Match")
-                        }
-                        
-                        Button(action: { viewStore.send(.nav(.setShowChessgame(true) )) })
-                        {
-                            Text("Show board")
-                        }
-                    }
+                    Spacer(minLength: 50)
                     
+                    ActionButton(title: "Play Computer", viewStore: viewStore, actions:
+                                    [
+                                        .chessGame(.playComputerAs(.white, nil)),
+                                        .nav(.setShowChessgame(true) )
+                                    ])
+                    
+                    ActionButton(title: "Play Online", viewStore: viewStore, actions: [.gameCenter(.userRequestsGame ) ])
                     
                     NavigationLink(destination: ChessGameView(store: self.store), isActive: viewStore.binding( get:{ $0.nav.showChessgame}  ,send: { AppAction.nav(.setShowChessgame($0)) } ) ){
                         EmptyView()
                     }.hidden()
                     
                 }
+                .padding()
             }
+            .navigationBarTitle("Navigation")
         }
+        
     }
+    
+    
+    let buttonBackgroundColor = Color(red:172.0/255, green:172.0/255,blue: 232.0/255)
+    let buttonTextColor = Color(red:0.0, green:0.0,blue: 200.0/255)
 }
+
+
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
