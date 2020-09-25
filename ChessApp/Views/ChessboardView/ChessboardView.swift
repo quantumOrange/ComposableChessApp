@@ -17,10 +17,7 @@ struct ChessboardView: View {
     let store: Store<CheckerboardState<ChessGameState>,CheckerboardAction>
     
     var body: some View {
-        //GeometryReader { geom in
-            
-            Checkerboard(store: self.store)
-        //}
+        Checkerboard(store: self.store, getPieceView: ChessPieceView.init)
     }
 }
 

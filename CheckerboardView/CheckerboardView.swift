@@ -28,15 +28,16 @@ extension CheckerboardState {
     }
 }
 
-public struct Checkerboard<Game:CheckerboardGame> : View {
+public struct Checkerboard<Game:CheckerboardGame,PieceView:View> : View {
     
-    public init(store:Store<CheckerboardState<Game>,CheckerboardAction>) {
+    public init(store:Store<CheckerboardState<Game>,CheckerboardAction>, getPieceView:@escaping (Game.Piece) -> PieceView) {
         self.store = store
+        self.getPieceView = getPieceView
     }
     
    let store: Store<CheckerboardState<Game>,CheckerboardAction>
 
-    
+    var getPieceView:(Game.Piece) -> PieceView
     
     public var body: some View
         {
@@ -46,7 +47,7 @@ public struct Checkerboard<Game:CheckerboardGame> : View {
                 {
                    CheckerboardSquaresView(store:self.store.scope(state: { $0.checkerboardSquaresState }, action: absurd))
                     
-                    PlacedPiecesView(store: self.store.scope(state:{ $0.placedPiecesState },action: absurd))
+                    PlacedPiecesView(store: self.store.scope(state:{ $0.placedPiecesState  },action: absurd), getPieceView: getPieceView)
                     
                     TappableCheckersView(store: self.store.scope(state: { $0.tappableBoardState   }))
                 }
@@ -80,6 +81,6 @@ let mockStore = Store(initialState: mockCheckerBoardState, reducer: defaultCheck
 
 struct CheckerboardView_Previews: PreviewProvider {
     static var previews: some View {
-        Checkerboard(store: mockStore)
+        Checkerboard(store: mockStore,getPieceView:DefaultPieceView.init)
     }
 }

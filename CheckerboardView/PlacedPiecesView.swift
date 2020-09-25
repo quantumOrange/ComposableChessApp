@@ -42,19 +42,7 @@ public struct PlacedPiecesState<Piece:CheckerPiece>:Equatable {
     }
 }
 
-public protocol PieceViewRepresenable:CheckerPiece {
-    associatedtype PieceView:View
-    func view(size:CGFloat) -> PieceView
-}
-
-extension DefaultPiece:PieceViewRepresenable {
-    
-    func view(size:CGFloat) -> DefaultPieceView {
-        DefaultPieceView(piece: self, width: size)
-    }
-}
-
-struct PlacedPiecesView<Piece:PieceViewRepresenable>: View {
+struct PlacedPiecesView<Piece:CheckerPiece,PieceView:View>: View {
     let store: Store<PlacedPiecesState<Piece>,Never>
     
     var body: some View
@@ -89,8 +77,11 @@ struct PlacedPiecesView<Piece:PieceViewRepresenable>: View {
             
     }
     
+    
+    var getPieceView:(Piece) -> PieceView
+    
     func configurePieceView(placedPiece:PlacedCheckerPiece<Piece>,viewStore: ViewStore<PlacedPiecesState<Piece>,Never>,  size:CGFloat) -> some View {
-        placedPiece.piece.view(size:size)
+        getPieceView(placedPiece.piece)
             .offset(x: size * placedPiece.offsetX(pointOfView: viewStore.state.pointOfView) , y:  size * placedPiece.offsetY(pointOfView: viewStore.state.pointOfView))
             .animation(.easeInOut(duration: 1.0))
     }
@@ -119,7 +110,7 @@ struct PlacedPieceView_Previews: PreviewProvider {
         ZStack {
         CheckerboardSquaresView(store: Store(initialState: CheckerboardSquaresState(), reducer: nullReducer, environment: ()))
             //.overlay(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Overlay Content@*/Text("Placeholder")/*@END_MENU_TOKEN@*/)
-        PlacedPiecesView(store: Store(initialState: mockPlacedPiecesState, reducer: nullPieceReducer , environment: ()))
+            PlacedPiecesView(store: Store(initialState: mockPlacedPiecesState, reducer: nullPieceReducer , environment: ()), getPieceView:DefaultPieceView.init )
         }
     }
 }

@@ -16,13 +16,12 @@ struct ChessGameView : View {
     {
         VStack(alignment:.center )
         {
-           // Spacer()
                 
             PlayerView(store: self.store.scope(state: \.topPlayer ).actionless)
                 .padding()
             
             ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.checkerboard)).debugOutline()
-                //.padding()
+               
                 
             PlayerView(store: self.store.scope(state: \.bottomPlayer ).actionless)
                 .padding()

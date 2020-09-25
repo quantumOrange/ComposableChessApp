@@ -44,7 +44,7 @@ public struct CheckerBoardUIState:Equatable {
 }
 
 public protocol CheckerboardGame:Equatable {
-    associatedtype Piece:PieceViewRepresenable
+    associatedtype Piece:CheckerPiece
     var placedPieces:[ PlacedCheckerPiece<Piece>] { get }
     
     mutating func applyMove(move:Move) -> Bool // returns true if the move is valid and succesfully applied
@@ -53,7 +53,7 @@ public protocol CheckerboardGame:Equatable {
 
 public struct CheckerboardState<Game:CheckerboardGame>:Equatable {
     public var game:Game
-    //var placedPieces:[PlacedCheckerPiece<Piece>]
+    
     var turn:PlayerColor
     
     var userPlaysBlack:Bool = false

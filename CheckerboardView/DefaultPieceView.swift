@@ -10,7 +10,6 @@ import SwiftUI
 
 struct DefaultPieceView: View {
     let piece:DefaultPiece
-    let width:CGFloat
     
     var systemName:String {
         switch piece.playerColor {
@@ -22,9 +21,12 @@ struct DefaultPieceView: View {
     }
     
     var body: some View {
-        Image(systemName: systemName)
-            .font(.system(size: width))
-            .frame(width: width, height: width, alignment: .center)
+        GeometryReader{ geometry in
+            
+            Image(systemName: systemName)
+                .font(.system(size: geometry.size.width))
+            
+        }
             
     }
     
@@ -38,8 +40,8 @@ struct DefaultPieceView_Previews: PreviewProvider {
              }) {
                 Text("I'm a Button")
             }
-             DefaultPieceView(piece:DefaultPiece(playerColor: .black, id: 0), width:70)
-             DefaultPieceView(piece:DefaultPiece(playerColor: .white, id: 1), width:70)
+             DefaultPieceView(piece:DefaultPiece(playerColor: .black, id: 0))
+             DefaultPieceView(piece:DefaultPiece(playerColor: .white, id: 1))
         }
         
     }

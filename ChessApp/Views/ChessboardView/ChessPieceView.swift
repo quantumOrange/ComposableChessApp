@@ -21,35 +21,31 @@ extension ChessPiece:CheckerPiece {
     }
 }
 
-extension ChessPiece:PieceViewRepresenable
-{
-    public func view(size:CGFloat) ->  ChessPieceView {
-        ChessPieceView(piece: self, width: size)
-    }
-}
- 
 public struct ChessPieceView : View
 {
 
     let piece:ChessPiece
-    let width:CGFloat
+    
     
     public var body: some View
     {
-        ZStack
-        {
-            
-            Text(verbatim:"\(backgroundPiece)")
-                .font(.system(size: width, weight: .thin, design: .monospaced))
-                .foregroundColor(.white)
-                .frame(width: width, height: width, alignment: .center)
-            
-            
-            Text(verbatim:"\(piece.symbol)")
-                .font(.system(size: width, weight: .bold, design: .monospaced))
-                .foregroundColor(.black)
-                .frame(width: width, height: width, alignment: .center)
-            
+        GeometryReader
+        {   geometry in
+            ZStack
+            {
+                
+                Text(verbatim:"\(backgroundPiece)")
+                    .font(.system(size: geometry.size.width, weight: .thin, design: .monospaced))
+                    .foregroundColor(.white)
+                    .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
+                
+                
+                Text(verbatim:"\(piece.symbol)")
+                    .font(.system(size: geometry.size.width, weight: .bold, design: .monospaced))
+                    .foregroundColor(.black)
+                    .frame(width: geometry.size.width, height: geometry.size.width, alignment: .center)
+                
+            }
         }
     }
     
@@ -75,12 +71,12 @@ struct ChessPieceView_Previews: PreviewProvider {
         HStack {
             VStack {
                 ForEach(whitePieces){ piece in
-                    ChessPieceView(piece: piece, width: 100)
+                    ChessPieceView(piece: piece)
                 }
             }
             VStack {
                 ForEach(blackPieces){ piece in
-                    ChessPieceView(piece: piece, width: 100)
+                    ChessPieceView(piece: piece)
                 }
             }
         }

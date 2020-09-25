@@ -56,6 +56,7 @@ fileprivate let mockReducer = Reducer<TappableBoardState,CheckerboardAction,Void
     return Effect.none
 }
 fileprivate let mockstore:Store<TappableBoardState,CheckerboardAction> = Store<TappableBoardState,CheckerboardAction>(initialState: tappableBoardState, reducer: mockReducer, environment: ())
+
 struct TappableCheckersView_Previews: PreviewProvider {
     
     
