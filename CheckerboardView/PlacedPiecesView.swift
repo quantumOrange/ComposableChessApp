@@ -44,7 +44,6 @@ public struct PlacedPiecesState<Piece:CheckerPiece>:Equatable {
 
 public protocol PieceViewRepresenable:CheckerPiece {
     associatedtype PieceView:View
-   // init(piece:Piece,width:CGFloat)
     func view(size:CGFloat) -> PieceView
 }
 
@@ -58,16 +57,11 @@ extension DefaultPiece:PieceViewRepresenable {
 struct PlacedPiecesView<Piece:PieceViewRepresenable>: View {
     let store: Store<PlacedPiecesState<Piece>,Never>
     
-    //let width:CGFloat
-    
-   // var squareWidth:CGFloat { width/8.0 }
-    
     var body: some View
     {
         GeometryReader
         {   geometry in
-            
-            //geometry.size.width
+
             WithViewStore(self.store)
             {   viewStore in
                 

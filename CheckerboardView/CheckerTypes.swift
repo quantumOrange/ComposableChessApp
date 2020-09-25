@@ -82,10 +82,8 @@ func files(orientatedFor pointOfView:PlayerColor) -> [Int] {
     switch pointOfView {
     case .white:
         return Array(0...7)
-       // return  ChessFile.allCases
     case .black:
         return Array(0...7).reversed()
-       // return  ChessFile.allCases.reversed()
     }
 }
 
@@ -93,10 +91,8 @@ func ranks(orientatedFor pointOfView:PlayerColor) -> [Int] {
      switch pointOfView {
      case .white:
         return Array(0...7).reversed()
-        // return  ChessRank.allCases.reversed()
      case .black:
         return Array(0...7)
-        // return  ChessRank.allCases
      }
 }
 

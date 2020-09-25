@@ -36,11 +36,8 @@ struct TappableCheckersView: View {
                             {
                                 Rectangle()
                                     .stroke()
-                                       // .fill(Color.blue)
-                                    
-                                    //Spacer().frame(width:self.squareWidth,height: self.squareWidth)
+                                       
                             }
-                            //.frame(width:self.squareWidth, height: self.squareWidth, alignment: .center)
 
                         }
 
@@ -48,7 +45,7 @@ struct TappableCheckersView: View {
                 }
             }
             .aspectRatio(1,contentMode: .fit)
-            //.animation(.easeInOut(duration: 0.3))
+
         }
     }
 }
