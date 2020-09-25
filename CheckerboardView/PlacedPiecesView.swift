@@ -58,33 +58,48 @@ extension DefaultPiece:PieceViewRepresenable {
 struct PlacedPiecesView<Piece:PieceViewRepresenable>: View {
     let store: Store<PlacedPiecesState<Piece>,Never>
     
-    let width:CGFloat
+    //let width:CGFloat
     
-    var squareWidth:CGFloat { width/8.0 }
+   // var squareWidth:CGFloat { width/8.0 }
     
-    var body: some View {
-        WithViewStore(self.store) { viewStore in
+    var body: some View
+    {
+        GeometryReader
+        {   geometry in
             
-            VStack{
-                     Spacer().frame(width: self.width/8.0, height:7*self.width/8.0, alignment: .center)
-                     HStack(alignment: .bottom, spacing: 0) {
+            //geometry.size.width
+            WithViewStore(self.store)
+            {   viewStore in
+                
+                VStack
+                {
+                     Spacer().frame(width: geometry.size.width/8.0, height:7*geometry.size.width/8.0, alignment: .center)
+                     HStack(alignment: .bottom, spacing: 0)
+                     {
                         ZStack
                         {
-                           ForEach(viewStore.placedPieces ){ placedPiece in
-                            placedPiece.piece.view(size:self.squareWidth)
-                            .offset(x: self.squareWidth * placedPiece.offsetX(pointOfView: viewStore.state.pointOfView) , y:  self.squareWidth * placedPiece.offsetY(pointOfView: viewStore.state.pointOfView))
-                             .animation(.easeInOut(duration: 1.0))
+                            ForEach(viewStore.placedPieces )
+                            {   placedPiece in
+                                configurePieceView(placedPiece: placedPiece, viewStore: viewStore, size: geometry.size.width/8.0)
                                     
                             }
                         }
-                        Spacer().frame(width: 7*self.width/8.0, height: self.width/8.0, alignment: .center)
+                        Spacer().frame(width: 7*geometry.size.width/8.0, height: geometry.size.width/8.0, alignment: .center)
                     }
-                   
+                       
                 }
                 
+                    
             }
+        }.aspectRatio(1, contentMode: .fit)
             
-        }
+    }
+    
+    func configurePieceView(placedPiece:PlacedCheckerPiece<Piece>,viewStore: ViewStore<PlacedPiecesState<Piece>,Never>,  size:CGFloat) -> some View {
+        placedPiece.piece.view(size:size)
+            .offset(x: size * placedPiece.offsetX(pointOfView: viewStore.state.pointOfView) , y:  size * placedPiece.offsetY(pointOfView: viewStore.state.pointOfView))
+            .animation(.easeInOut(duration: 1.0))
+    }
     
 }
 
@@ -108,8 +123,9 @@ let mockPlacedPiecesState = PlacedPiecesState(placedPieces: [pp1,pp2,pp3,pp4], p
 struct PlacedPieceView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-        CheckerboardSquaresView(store: Store(initialState: CheckerboardSquaresState(), reducer: nullReducer, environment: ()), width: 300)
-        PlacedPiecesView(store: Store(initialState: mockPlacedPiecesState, reducer: nullPieceReducer , environment: ()), width: 300)
+        CheckerboardSquaresView(store: Store(initialState: CheckerboardSquaresState(), reducer: nullReducer, environment: ()))
+            //.overlay(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Overlay Content@*/Text("Placeholder")/*@END_MENU_TOKEN@*/)
+        PlacedPiecesView(store: Store(initialState: mockPlacedPiecesState, reducer: nullPieceReducer , environment: ()))
         }
     }
 }

@@ -5,24 +5,13 @@
 //  Created by david crooks on 18/08/2019.
 //  Copyright © 2019 david crooks. All rights reserved.
 //
-//import DCArchitecture
+
 import ComposableArchitecture
 import SwiftUI
 import Combine
-//import Chess
-/*
-func idAction(_ a:ChessboardAction) -> ChessboardAction {
-    return a
-}
 
-func idState(_ v:CheckerboardState) -> CheckerboardState {
-    return v
-}
-*/
 
-func absurd<A>(_ action:Never) -> A {
-    
-}
+func absurd<A>(_ action:Never) -> A {}
 
 
 extension CheckerboardState {
@@ -39,16 +28,14 @@ extension CheckerboardState {
     }
 }
 
-public struct BoardView<Game:CheckerboardGame> : View {
+public struct Checkerboard<Game:CheckerboardGame> : View {
     
-    public init(store:Store<CheckerboardState<Game>,CheckerboardAction>,width:CGFloat) {
+    public init(store:Store<CheckerboardState<Game>,CheckerboardAction>) {
         self.store = store
-        self.width = width
     }
     
    let store: Store<CheckerboardState<Game>,CheckerboardAction>
-  
-    let width:CGFloat
+
     
     
     public var body: some View
@@ -57,11 +44,11 @@ public struct BoardView<Game:CheckerboardGame> : View {
             { viewStore in
                 ZStack
                 {
-                   CheckerboardSquaresView(store:self.store.scope(state: { $0.checkerboardSquaresState }, action: absurd) , width: self.width)
+                   CheckerboardSquaresView(store:self.store.scope(state: { $0.checkerboardSquaresState }, action: absurd))
                     
-                    PlacedPiecesView(store: self.store.scope(state:{ $0.placedPiecesState },action: absurd), width: self.width)
+                    PlacedPiecesView(store: self.store.scope(state:{ $0.placedPiecesState },action: absurd))
                     
-                    TappableCheckersView(store: self.store.scope(state: { $0.tappableBoardState   }), width: self.width )
+                    TappableCheckersView(store: self.store.scope(state: { $0.tappableBoardState   }))
                 }
             }
         }
@@ -69,10 +56,12 @@ public struct BoardView<Game:CheckerboardGame> : View {
 
 
 
+/**********************************************************************/
+/*                    PREVIEW                                    */
+/**********************************************************************/
+
 let mockCheckerBoardState = CheckerboardState<DefaultGame>(game:DefaultGame(),turn:.white,boardState: CheckerBoardUIState())
 
-
-//public let mockCheckerboardEnviroment = CheckerboardEnviroment(
 struct MockCheckerboardEnviroment: CheckerboardEnviromentProtocol {
     
     func subscribe() -> Effect<CheckerboardAction, Never> {
@@ -84,19 +73,13 @@ struct MockCheckerboardEnviroment: CheckerboardEnviromentProtocol {
     }
 
 }
+
 let mockCheckerboardEnviroment = MockCheckerboardEnviroment()
-/*Game
-let mockCheckerboardEnviroment = CheckerboardEnviroment(playMove: { move in
-    
-    return Effect(value: .clear)
-}, selected: { square in
-    return Effect(value: .validDestinationSquares([]))
-})
-*/
+
 let mockStore = Store(initialState: mockCheckerBoardState, reducer: defaultCheckerBoardReducer, environment: mockCheckerboardEnviroment)
 
 struct CheckerboardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(store: mockStore, width: 300)
+        Checkerboard(store: mockStore)
     }
 }

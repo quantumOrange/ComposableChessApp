@@ -61,7 +61,6 @@ public struct PlacedCheckerPiece<A:CheckerPiece>:Equatable,Identifiable {
     let piece:A
     public var id: A.ID { piece.id }
     let square:CheckerboardSquare
-    //let player:PlayerColor
     
     public init(piece:A,square:CheckerboardSquare){
         self.piece = piece

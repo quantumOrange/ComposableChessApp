@@ -5,10 +5,10 @@
 //  Created by david crooks on 22/09/2019.
 //  Copyright © 2019 david crooks. All rights reserved.
 //
-//import DCArchitecture
+
 import ComposableArchitecture
 import SwiftUI
-//import Chess
+
 
 enum SquareColor {
     case dark
@@ -52,14 +52,14 @@ extension SquareColor {
     
 }
 
-
 struct CheckerboardSquaresState:Equatable {
     var possibleDestinationSquares:[CheckerboardSquare] = []
     var selectedSquare:CheckerboardSquare?
     var playerPointOfView:PlayerColor = .white
+    
     func color(rank:Int,file:Int) -> Color {
         let sqColor = SquareColor.at(rank:rank, file: file)
-      //  return sqColor.color
+
         let square = CheckerboardSquare(rank:rank, file:file)
         
        let couldMoveToSquare = possibleDestinationSquares.contains(square)
@@ -72,62 +72,41 @@ struct CheckerboardSquaresState:Equatable {
         else {
             return sqColor.color
         }
-       //let selected = selectedSquare == square
-        
-      // let highlighted = selected || couldMoveToSquare
-        
-      // return highlighted ? sqColor.highlightedColor : sqColor.color
+
     }
 }
 
-struct CheckerboardSquaresView: View {
+struct CheckerboardSquaresView: View
+{
     
     let store: Store<CheckerboardSquaresState,Never>
-    
-    let width:CGFloat
-    
-    var squareWidth:CGFloat {
-        width/8.0
-    }
-    /*
-    var possibleDestinationSquares:[ChessboardSquare] {
-        guard let selected = store.value.selectedSquare else { return [] }
-        //TODO: clean this up . Make validMove internal
-        return validMoves(chessboard: store.value.chessGame.board,
-                          square: selected,
-                      includeCastles: true)
-            .map { $0.to.chessboardSquare}
-    }
-    */
-    
-    
-    var body: some View {
-         WithViewStore(self.store) { viewStore in
-            
-        HStack(alignment: .center,spacing:0)
-                       {
-                      
-                            //ForEach(files(orientatedFor:viewStore.playerPointOfView))
+        
+    var body: some View
+    {
+        WithViewStore(self.store)
+        {   viewStore in
+
+            HStack(alignment: .center,spacing:0)
+            {
+
+                ForEach(files(orientatedFor:viewStore.state.playerPointOfView))
+                {   file in
                         
-                        ForEach(files(orientatedFor:viewStore.state.playerPointOfView))
-                                { file in
-                                    
-                                    
-                                    VStack(alignment: .center, spacing:0)
-                                    {
-                                        ForEach(ranks(orientatedFor:.white)) { rank in
-                                            
-                                        Spacer()
-                                         .frame(width:self.squareWidth,height:self.squareWidth)
-                                            .background(viewStore.state.color(rank: rank, file: file))
-                                     }
-                                    }
-                                    
-                                }
-                            }.animation(.easeInOut(duration: 2.0))
+                    VStack(alignment: .center, spacing:0)
+                    {
+                        ForEach(ranks(orientatedFor:.white))
+                        {   rank in
+                            Rectangle()
+                                .fill(viewStore.state.color(rank: rank, file: file))
+                        }
+                    }
                         
-                       }
-                        
+                }
+            }.animation(.easeInOut(duration: 2.0))
+
+        }
+        .aspectRatio(1, contentMode: .fit)
+                    
     }
 }
 
@@ -139,6 +118,6 @@ CheckerboardSquare(rank: 3, file: 5)], selectedSquare: CheckerboardSquare(rank: 
 
 struct ChessboardSquaresView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckerboardSquaresView(store: Store(initialState: mockCheckerboardSquaresState, reducer: nullReducer, environment: ()), width: 300)
+        CheckerboardSquaresView(store: Store(initialState: mockCheckerboardSquaresState, reducer: nullReducer, environment: ()))
     }
 }

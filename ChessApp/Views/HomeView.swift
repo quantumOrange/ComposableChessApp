@@ -14,33 +14,38 @@ struct HomeView: View
     let devMode = false
     var body: some View
     {
-        WithViewStore(self.store)
-        { viewStore in
-            NavigationView
-            {
+
+        NavigationView
+        {
+            WithViewStore(self.store)
+            {   viewStore in
+                
                 VStack(alignment: .center)
                 {
                     
                     Image("ChessHomeIcon")
                     
-                    Spacer(minLength: 50)
+                    Spacer()
                     
                     ActionButton(title: "Play Computer", viewStore: viewStore, actions:
                                     [
                                         .chessGame(.playComputerAs(.white, nil)),
                                         .nav(.setShowChessgame(true) )
                                     ])
+                        .padding()
                     
                     ActionButton(title: "Play Online", viewStore: viewStore, actions: [.gameCenter(.userRequestsGame ) ])
+                        .padding()
                     
                     NavigationLink(destination: ChessGameView(store: self.store), isActive: viewStore.binding( get:{ $0.nav.showChessgame}  ,send: { AppAction.nav(.setShowChessgame($0)) } ) ){
                         EmptyView()
                     }.hidden()
                     
+                    Spacer()
                 }
-                .padding()
+                
             }
-            .navigationBarTitle("Navigation")
+            .navigationBarTitle("Chess")
         }
         
     }
