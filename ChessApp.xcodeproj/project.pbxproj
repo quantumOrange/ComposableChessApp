@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5403054D251D011200F80C5A /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5403054C251D011200F80C5A /* ActionButton.swift */; };
 		54030561251D0DFD00F80C5A /* DevView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54030560251D0DFD00F80C5A /* DevView.swift */; };
+		54030569251D1CC000F80C5A /* AppColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54030568251D1CC000F80C5A /* AppColorScheme.swift */; };
 		54115A1525151657002DF01D /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A1425151656002DF01D /* PlayerView.swift */; };
 		54115A172515178E002DF01D /* ChessEngine+Checkerboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A162515178E002DF01D /* ChessEngine+Checkerboard.swift */; };
 		54115A1925151825002DF01D /* ChessGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A1825151824002DF01D /* ChessGameView.swift */; };
@@ -259,6 +260,7 @@
 /* Begin PBXFileReference section */
 		5403054C251D011200F80C5A /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		54030560251D0DFD00F80C5A /* DevView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevView.swift; sourceTree = "<group>"; };
+		54030568251D1CC000F80C5A /* AppColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorScheme.swift; sourceTree = "<group>"; };
 		54115A1425151656002DF01D /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		54115A162515178E002DF01D /* ChessEngine+Checkerboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChessEngine+Checkerboard.swift"; sourceTree = "<group>"; };
 		54115A1825151824002DF01D /* ChessGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChessGameView.swift; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 		54806A162488580100A91153 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				54030568251D1CC000F80C5A /* AppColorScheme.swift */,
 				548069262488388100A91153 /* RootView.swift */,
 				54030560251D0DFD00F80C5A /* DevView.swift */,
 				54115A1C25152289002DF01D /* HomeView.swift */,
@@ -1103,6 +1106,7 @@
 				54030561251D0DFD00F80C5A /* DevView.swift in Sources */,
 				54115A1525151657002DF01D /* PlayerView.swift in Sources */,
 				54115A66251925BE002DF01D /* AppState+CheckerboardView.swift in Sources */,
+				54030569251D1CC000F80C5A /* AppColorScheme.swift in Sources */,
 				54806A0F2488492A00A91153 /* ChessboardView.swift in Sources */,
 				54115A64251923AC002DF01D /* AppState+GameCenter.swift in Sources */,
 				54115A2125168D6B002DF01D /* ApplicationEnviroment.swift in Sources */,

@@ -7,13 +7,15 @@
 //
 
 import Foundation
+import UIKit
 extension AppState {
    var whitePlayer:PlayerViewModel {
         return PlayerViewModel(
                                 name: "Mr White",
                                 player: .white,
                                 type: chessGame.players.player(for: .white),
-                                isPlayersTurn: (chessGame.board.whosTurnIsItAnyway == .white)
+                                isPlayersTurn: (chessGame.board.whosTurnIsItAnyway == .white),
+                                image: UIImage(named:"defaultUser")!
                             )
     }
     
@@ -22,7 +24,8 @@ extension AppState {
                                 name: "Mr Black",
                                 player: .black,
                                 type: chessGame.players.player(for: .black),
-                                isPlayersTurn: (chessGame.board.whosTurnIsItAnyway == .black)
+                                isPlayersTurn: (chessGame.board.whosTurnIsItAnyway == .black),
+                                image: UIImage(named:"defaultComputer")!
                                 )
     }
     

@@ -29,8 +29,8 @@ struct ActionButton:View
     }
     
     let cornerRadius:CGFloat = 25.0
-    let buttonBackgroundColor = Color(red:172.0/255, green:172.0/255,blue: 232.0/255)
-    let buttonTextColor = Color(red:0.0, green:0.0,blue: 200.0/255)
+    let buttonBackgroundColor = AppColorScheme.insetBackgroundColor
+    let buttonTextColor = AppColorScheme.textColor
 }
 
 struct ActionButton_Previews: PreviewProvider {

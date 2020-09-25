@@ -14,24 +14,36 @@ struct ChessGameView : View {
     
     var body: some View
     {
-        VStack(alignment:.center, spacing:50 )
+        VStack(alignment:.center )
         {
+           // Spacer()
+                
             PlayerView(store: self.store.scope(state: \.topPlayer ).actionless)
-            ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.checkerboard))
+               
+                //.padding()
+            
+            ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.checkerboard)).debugOutline()
+                //.padding()
+                
             PlayerView(store: self.store.scope(state: \.bottomPlayer ).actionless)
+                //.padding()
+            
+           Spacer()
+                
         }
+        
     }
 }
 
 
 #if DEBUG
 
-/*
+
 struct ChessGameView_Previews: PreviewProvider {
     static var previews: some View {
-        ChessGameView(store:chessStore())
+        ChessGameView(store:Store(initialState: AppState(), reducer: appReducer, environment: Enviroment()))
     }
 }
-*/
+
 
 #endif
