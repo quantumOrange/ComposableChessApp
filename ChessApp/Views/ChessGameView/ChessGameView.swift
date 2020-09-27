@@ -14,21 +14,44 @@ struct ChessGameView : View {
     
     var body: some View
     {
-        VStack(alignment:.center )
-        {
+        WithViewStore(self.store)
+        {   viewStore in
+            VStack(alignment:.center,spacing:0 )
+            {
                 
-            PlayerView(store: self.store.scope(state: \.topPlayer ).actionless)
-                .padding()
+                ZStack {
+                    Rectangle()
+                        .fill(AppColorScheme.insetInsetBackgroundColor)
+                        .edgesIgnoringSafeArea(.all)
+                    HStack {
+                        IconButton(systemName:"chevron.left",viewStore: viewStore, actions: [.nav(.setShowChessgame(false))])
+                            .foregroundColor(AppColorScheme.textColor)
+                        Spacer()
+                    }
+                    .padding([.leading,.trailing,.bottom])
+                }
+                
+                PlayerView(store: self.store.scope(state: \.topPlayer ).actionless)
+                  
+                ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.checkerboard))
+                    .layoutPriority(100)
+                     
+                PlayerView(store: self.store.scope(state: \.bottomPlayer ).actionless)
+                   
+                ZStack {
+                    Rectangle()
+                        .fill(AppColorScheme.insetInsetBackgroundColor)
+                        .edgesIgnoringSafeArea(.all)
+
+                    ChessControlView(viewStore: viewStore)
+                        
+                }
+                
+            }
+            .navigationBarHidden(true)
             
-            ChessboardView(store:self.store.scope(state: \.chessboardState, action: AppAction.checkerboard)).debugOutline()
-               
-                
-            PlayerView(store: self.store.scope(state: \.bottomPlayer ).actionless)
-                .padding()
-            
-           Spacer()
-                
         }
+        .debugOutline()
         
     }
 }

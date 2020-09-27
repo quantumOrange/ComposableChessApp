@@ -11,7 +11,7 @@ import CheckerboardView
 import ChessEngine
 import ComposableArchitecture
 
-
+//et chessBoardSquareColors =
 
 struct ChessboardView: View {
     let store: Store<CheckerboardState<ChessGameState>,CheckerboardAction>

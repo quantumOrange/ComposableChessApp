@@ -14,9 +14,11 @@ import Combine
 func absurd<A>(_ action:Never) -> A {}
 
 
+
+
 extension CheckerboardState {
     var checkerboardSquaresState:CheckerboardSquaresState {
-        CheckerboardSquaresState(possibleDestinationSquares:boardState.validDestinationSquares , selectedSquare: boardState.selectedSquare, playerPointOfView: boardState.playerPointOfView)
+        CheckerboardSquaresState(possibleDestinationSquares:boardState.validDestinationSquares , selectedSquare: boardState.selectedSquare, playerPointOfView: boardState.playerPointOfView, checkerColors: checkerColors)
     }
     
     var tappableBoardState:TappableBoardState {

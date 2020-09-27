@@ -55,7 +55,7 @@ public struct CheckerboardState<Game:CheckerboardGame>:Equatable {
     public var game:Game
     
     var turn:PlayerColor
-    
+    let checkerColors:CheckerColors
     var userPlaysBlack:Bool = false
     var userPlaysWhite:Bool = true
     
@@ -69,11 +69,12 @@ public struct CheckerboardState<Game:CheckerboardGame>:Equatable {
     }
     public var boardState:CheckerBoardUIState
     
-    public init(game:Game,turn:PlayerColor, boardState:CheckerBoardUIState){
+    public init(game:Game,turn:PlayerColor, boardState:CheckerBoardUIState,checkerColors:CheckerColors = CheckerColors.defaultColors){
         //self.placedPieces = placedPieces
         self.game = game
         self.turn = turn
         self.boardState = boardState
+        self.checkerColors = checkerColors
     }
 }
 

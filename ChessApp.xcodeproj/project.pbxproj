@@ -23,6 +23,9 @@
 		54115A6025191FBF002DF01D /* GameCenterEnviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A5F25191FBF002DF01D /* GameCenterEnviroment.swift */; };
 		54115A64251923AC002DF01D /* AppState+GameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A63251923AC002DF01D /* AppState+GameCenter.swift */; };
 		54115A66251925BE002DF01D /* AppState+CheckerboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54115A65251925BE002DF01D /* AppState+CheckerboardView.swift */; };
+		5468E1D9251F495B0078E5E4 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E1D8251F495B0078E5E4 /* IconButton.swift */; };
+		5468E1E1251F80380078E5E4 /* ChessControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E1E0251F80380078E5E4 /* ChessControlView.swift */; };
+		5468E1F5251FB1D40078E5E4 /* CheckerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E1F4251FB1D40078E5E4 /* CheckerColors.swift */; };
 		548069232488388100A91153 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069222488388100A91153 /* AppDelegate.swift */; };
 		548069252488388100A91153 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069242488388100A91153 /* SceneDelegate.swift */; };
 		548069272488388100A91153 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069262488388100A91153 /* RootView.swift */; };
@@ -274,6 +277,9 @@
 		54115A5F25191FBF002DF01D /* GameCenterEnviroment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterEnviroment.swift; sourceTree = "<group>"; };
 		54115A63251923AC002DF01D /* AppState+GameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState+GameCenter.swift"; sourceTree = "<group>"; };
 		54115A65251925BE002DF01D /* AppState+CheckerboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState+CheckerboardView.swift"; sourceTree = "<group>"; };
+		5468E1D8251F495B0078E5E4 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		5468E1E0251F80380078E5E4 /* ChessControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessControlView.swift; sourceTree = "<group>"; };
+		5468E1F4251FB1D40078E5E4 /* CheckerColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerColors.swift; sourceTree = "<group>"; };
 		5480691F2488388100A91153 /* ChessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		548069222488388100A91153 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		548069242488388100A91153 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -471,8 +477,9 @@
 		54115A6825192810002DF01D /* ChessGameView */ = {
 			isa = PBXGroup;
 			children = (
-				54115A1425151656002DF01D /* PlayerView.swift */,
 				54115A1825151824002DF01D /* ChessGameView.swift */,
+				54115A1425151656002DF01D /* PlayerView.swift */,
+				5468E1E0251F80380078E5E4 /* ChessControlView.swift */,
 			);
 			path = ChessGameView;
 			sourceTree = "<group>";
@@ -609,6 +616,7 @@
 			children = (
 				548069F42488472900A91153 /* CheckerboardReducer.swift */,
 				548069F12488472900A91153 /* CheckerboardView.swift */,
+				5468E1F4251FB1D40078E5E4 /* CheckerColors.swift */,
 				548069EF2488472900A91153 /* CheckerTypes.swift */,
 				548069F22488472900A91153 /* ChessboardSquaresView.swift */,
 				548069F02488472900A91153 /* DefaultPieceView.swift */,
@@ -685,6 +693,7 @@
 				54030560251D0DFD00F80C5A /* DevView.swift */,
 				54115A1C25152289002DF01D /* HomeView.swift */,
 				5403054C251D011200F80C5A /* ActionButton.swift */,
+				5468E1D8251F495B0078E5E4 /* IconButton.swift */,
 				54115A6825192810002DF01D /* ChessGameView */,
 				54115A6925192837002DF01D /* ChessboardView */,
 			);
@@ -1101,6 +1110,7 @@
 				54806A1424884A7600A91153 /* AppState.swift in Sources */,
 				54BE6A8924D9A31F005D9D82 /* Enviroment.swift in Sources */,
 				54115A5E2518FC73002DF01D /* CheckerboardEnviroment.swift in Sources */,
+				5468E1D9251F495B0078E5E4 /* IconButton.swift in Sources */,
 				5403054D251D011200F80C5A /* ActionButton.swift in Sources */,
 				548069252488388100A91153 /* SceneDelegate.swift in Sources */,
 				54030561251D0DFD00F80C5A /* DevView.swift in Sources */,
@@ -1108,6 +1118,7 @@
 				54115A66251925BE002DF01D /* AppState+CheckerboardView.swift in Sources */,
 				54030569251D1CC000F80C5A /* AppColorScheme.swift in Sources */,
 				54806A0F2488492A00A91153 /* ChessboardView.swift in Sources */,
+				5468E1E1251F80380078E5E4 /* ChessControlView.swift in Sources */,
 				54115A64251923AC002DF01D /* AppState+GameCenter.swift in Sources */,
 				54115A2125168D6B002DF01D /* ApplicationEnviroment.swift in Sources */,
 				54BE6A8B24E1AD72005D9D82 /* ChessGameState+Checkerboard.swift in Sources */,
@@ -1178,6 +1189,7 @@
 				548069FC2488472900A91153 /* PlacedPiecesView.swift in Sources */,
 				548069F72488472900A91153 /* DefaultPieceView.swift in Sources */,
 				548069FB2488472900A91153 /* CheckerboardReducer.swift in Sources */,
+				5468E1F5251FB1D40078E5E4 /* CheckerColors.swift in Sources */,
 				548069F82488472900A91153 /* CheckerboardView.swift in Sources */,
 				548069F92488472900A91153 /* ChessboardSquaresView.swift in Sources */,
 			);

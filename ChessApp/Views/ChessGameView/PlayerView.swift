@@ -85,24 +85,26 @@ struct PlayerView : View
         {   viewStore in
             ZStack
             {
-                RoundedRectangle(cornerRadius:10)
+                Rectangle()
                    .fill(AppColorScheme.insetBackgroundColor)
                 
                 HStack(alignment: .center)
                 {
                     Image(uiImage: viewStore.state.image)
                         .resizable()
-                        .frame(width: 60, height: 60)
+                        .aspectRatio(1, contentMode: .fit)
+                        //.frame(width: 60, height: 60)
                         .clipShape(Circle())
                         .shadow( radius: 15)
-                        .overlay(Circle().stroke(AppColorScheme.outlineColor, lineWidth: 5))
+                        .overlay(Circle().stroke(AppColorScheme.outlineColor, lineWidth: 2))
+                        
                         .padding()
                     //Spacer()
                     VStack(alignment: .leading)
                     {
                         HStack {
                             Text(viewStore.state.name)
-                                .font(Font.title)
+                                //.font(Font.title)
                                 .foregroundColor(AppColorScheme.textColor)
                             
                             switch viewStore.state.type {
@@ -117,53 +119,48 @@ struct PlayerView : View
                             }
                         }
                         
-                           // .debugOutline()
-                        
                         
                         Text(viewStore.takenPiecesString)
                             .font(.system(size: 16, weight: .bold, design: .monospaced))
                             .foregroundColor(viewStore.state.takenPieceColor)
-                            //.debugOutline()
+                            //.padding(7)
+                            
                     }
-                    //.debugOutline()
+                    .layoutPriority(10)
+                    
                     
                    Spacer()
-                   ZStack {
-                        RoundedRectangle(cornerRadius:10)
-                            .fill(AppColorScheme.insetInsetBackgroundColor)
-                            .frame(width: 60, height: 60)
-                            .padding()
                     
-                    if viewStore.state.isPlayersTurn {
-                        switch viewStore.state.type {
+                   ZStack
+                   {
                         
-                        case .appUser:
-                            Text("Your Turn")
-                                .foregroundColor(AppColorScheme.textColor)
-                                .frame(width: 60, height: 60)
+                    
+                        if viewStore.state.isPlayersTurn
+                        {
+                            RoundedRectangle(cornerRadius:10)
+                                .fill(AppColorScheme.insetInsetBackgroundColor)
                                 .padding()
-                        default:
-                            Image(systemName:"clock")
-                                .foregroundColor(AppColorScheme.textColor)
+                            
+                            switch viewStore.state.type
+                            {
+                            
+                            case .appUser:
+                                Text("Your turn")
+                                    .font(Font.caption)
+                                    .foregroundColor(AppColorScheme.textColor)
+
+                            default:
+                                Image(systemName:"clock")
+                                    .foregroundColor(AppColorScheme.textColor)
+                            }
                         }
-                    }
-                    
-                   
                         
                     }
-                    /*
-                    Image(systemName: statusImageName(viewStore.state.type))
-                    if(viewStore.state.isPlayersTurn)
-                    {
-                        Image(systemName:"hand.point.left")
-                    }
-                    */
+                  
                 }
-               // .debugOutline()
                 
-               
             }
-            .frame(height: 80)
+           
         }
     }
 }
@@ -184,15 +181,15 @@ struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
  
         
-        VStack {
+        VStack(spacing:200) {
             PlayerView(store: mockPVStoreComputer)
-                .padding()
+                
             
             PlayerView(store: mockPVStoreRemote)
-                .padding()
+                
             
             PlayerView(store: mockPVStorePlayer)
-                .padding()
+               
         }
     }
 }

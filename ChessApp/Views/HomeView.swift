@@ -24,6 +24,8 @@ struct HomeView: View
                 {
                     
                     Image("ChessHomeIcon")
+                        .resizable()
+                        .frame(width: 240, height: 240, alignment: .center)
                     
                     Spacer()
                     
@@ -43,9 +45,14 @@ struct HomeView: View
                     
                     Spacer()
                 }
-                
+                .navigationBarItems(trailing:
+                                    IconButton( systemName: "gear", viewStore:viewStore, actions: []))
+                .navigationBarTitle("Chess")
+                //navigationBarTitleDisplayMode()
             }
-            .navigationBarTitle("Chess")
+            
+            .debugOutline()
+            
         }
         
     }

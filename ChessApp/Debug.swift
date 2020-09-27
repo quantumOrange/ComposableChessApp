@@ -29,7 +29,6 @@ public struct GameCenterDebugState {
 }
 
 
-
 func debugBoardString(_ value:CustomStringConvertible) -> String {
     let invalidCharacters = CharacterSet.whitespacesAndNewlines.union(CharacterSet.decimalDigits)
     return "\(value)".filter{

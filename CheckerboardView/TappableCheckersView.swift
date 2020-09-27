@@ -34,8 +34,9 @@ struct TappableCheckersView: View {
 
                             Button(action:{viewStore.send(.tap(CheckerboardSquare(rank:rank, file:file)))})
                             {
+                                
                                 Rectangle()
-                                    .stroke()
+                                    .fill(Color.clear)
                                        
                             }
 

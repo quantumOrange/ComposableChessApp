@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-
+/*
 enum SquareColor {
     case dark
     case light
@@ -51,26 +51,27 @@ extension SquareColor {
     }
     
 }
+*/
 
 struct CheckerboardSquaresState:Equatable {
     var possibleDestinationSquares:[CheckerboardSquare] = []
     var selectedSquare:CheckerboardSquare?
     var playerPointOfView:PlayerColor = .white
+    let checkerColors:CheckerColors
     
     func color(rank:Int,file:Int) -> Color {
-        let sqColor = SquareColor.at(rank:rank, file: file)
-
+    
         let square = CheckerboardSquare(rank:rank, file:file)
         
        let couldMoveToSquare = possibleDestinationSquares.contains(square)
         if (selectedSquare == square){
-            return sqColor.selectedColor
+            return checkerColors.selectedSquare
         }
         else if (couldMoveToSquare){
-            return sqColor.highlightedColor
+            return checkerColors.highlightSquares
         }
         else {
-            return sqColor.color
+            return checkerColors.at(rank: rank, file: file)
         }
 
     }
@@ -114,7 +115,7 @@ struct CheckerboardSquaresView: View
 let nullReducer = Reducer<CheckerboardSquaresState,Never,Void>{ _ , _ , _ in .none }
 
 let mockCheckerboardSquaresState = CheckerboardSquaresState(possibleDestinationSquares: [CheckerboardSquare(rank: 1, file: 2),
-CheckerboardSquare(rank: 3, file: 5)], selectedSquare: CheckerboardSquare(rank: 2, file: 3), playerPointOfView: .white)
+                                                                                         CheckerboardSquare(rank: 3, file: 5)], selectedSquare: CheckerboardSquare(rank: 2, file: 3), playerPointOfView: .white, checkerColors: CheckerColors.defaultColors)
 
 struct ChessboardSquaresView_Previews: PreviewProvider {
     static var previews: some View {
