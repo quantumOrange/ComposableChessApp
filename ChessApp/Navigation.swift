@@ -11,33 +11,81 @@ import ComposableArchitecture
 
 enum NavAction {
     case setShowChessgame(Bool)
+    case setShowExplore(Bool)
+    case setShowSettings(Bool)
     case gotTo(NavState.Destinations)
 }
 
 struct NavState:Equatable {
     
     enum Destinations:Equatable {
+        enum ChessGame {
+            case root
+            case explore
+        }
+        
         case home
-        case chessgameview
+        case chessgameview(ChessGame)
+        case settings
+        //case explore
     }
     
     var destination = Destinations.home
     
-    var showChessgame:Bool { destination == .chessgameview }
+    var showChessgame:Bool
+    {
+        switch destination
+        {
+        case .chessgameview(_):
+            return true
+        default:
+            return false
+        }
+    }
+    
+    var showExplore:Bool {
+        switch destination
+        {
+        case .chessgameview(let chessView):
+            return chessView == .explore
+        default:
+            return false
+        }
+    }
+    
+    var showSettings:Bool { destination == .settings }
 }
 
 let navReducer = Reducer<NavState, NavAction, ()> { state,action, env in
-    switch action {
+    switch action
+    {
         
     case .setShowChessgame(let show):
         if show {
-            state.destination = .chessgameview
+            state.destination = .chessgameview(.root)
         }
         else if state.showChessgame {
             state.destination = .home
         }
     case .gotTo(let destination):
         state.destination = destination
+    case .setShowExplore(let show):
+        if show {
+            state.destination = .chessgameview(.explore)
+        }
+        else if state.showExplore {
+            state.destination = .chessgameview(.root)
+        }
+        else {
+            // ignore
+        }
+    case .setShowSettings(let show):
+        if show {
+            state.destination = .settings
+        }
+        else if state.showSettings {
+            state.destination = .home
+        }
     }
     return Effect.none
 }

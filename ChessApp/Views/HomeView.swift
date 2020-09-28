@@ -43,10 +43,14 @@ struct HomeView: View
                         EmptyView()
                     }.hidden()
                     
+                    NavigationLink(destination: SettingsView(), isActive: viewStore.binding( get:{ $0.nav.showSettings}  ,send: { AppAction.nav(.setShowSettings($0)) } ) ){
+                        EmptyView()
+                    }.hidden()
+                    
                     Spacer()
                 }
                 .navigationBarItems(trailing:
-                                    IconButton( systemName: "gear", viewStore:viewStore, actions: []))
+                                    IconButton( systemName: "gear", viewStore:viewStore, actions: [.nav(.setShowSettings(true) )]))
                 .navigationBarTitle("Chess")
                 //navigationBarTitleDisplayMode()
             }

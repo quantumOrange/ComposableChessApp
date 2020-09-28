@@ -49,10 +49,11 @@ fileprivate let mockViewStore =  ViewStore(Store(initialState: AppState(), reduc
 struct IconButton_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
+            
             Spacer()
             IconButton(systemName: "line.horizontal.3", viewStore:mockViewStore, actions: [])
             Spacer()
-            IconButton(systemName: "gear", viewStore:mockViewStore, actions: [],title: "Settings")
+            IconButton(systemName: "equal.circle", viewStore:mockViewStore, actions: [],title: "Settings")
             Spacer()
             IconButton(systemName: "eye", viewStore:mockViewStore, actions: [],title: "Explore")
             Spacer()

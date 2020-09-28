@@ -47,6 +47,9 @@ struct ChessGameView : View {
                         
                 }
                 
+                NavigationLink(destination: ExploreView(), isActive: viewStore.binding( get:{ $0.nav.showExplore}  ,send: { AppAction.nav(.setShowExplore($0)) } ) ){
+                    EmptyView()
+                }.hidden()
             }
             .navigationBarHidden(true)
             
@@ -58,7 +61,6 @@ struct ChessGameView : View {
 
 
 #if DEBUG
-
 
 struct ChessGameView_Previews: PreviewProvider {
     static var previews: some View {

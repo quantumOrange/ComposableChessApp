@@ -15,12 +15,18 @@ struct ChessControlView: View {
     var body: some View {
         HStack {
             Spacer()
-            IconButton( systemName: "line.horizontal.3", viewStore:viewStore, actions: [])
+            ResignButton(viewStore:mockViewStore)
             Spacer()
-            IconButton(systemName: "eye", viewStore:viewStore, actions: [])
+            
+            IconButton( systemName: "equal.circle", viewStore:viewStore, actions: [])
             Spacer()
+            IconButton(systemName: "eye", viewStore:viewStore, actions: [.nav(.setShowExplore(true) )])
+            Spacer()
+            
+            /*
             IconButton( systemName: "lightbulb", viewStore:viewStore, actions: [])
             Spacer()
+            */
         }
         .foregroundColor(AppColorScheme.textColor)
     }

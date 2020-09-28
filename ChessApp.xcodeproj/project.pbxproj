@@ -26,6 +26,9 @@
 		5468E1D9251F495B0078E5E4 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E1D8251F495B0078E5E4 /* IconButton.swift */; };
 		5468E1E1251F80380078E5E4 /* ChessControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E1E0251F80380078E5E4 /* ChessControlView.swift */; };
 		5468E1F5251FB1D40078E5E4 /* CheckerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468E1F4251FB1D40078E5E4 /* CheckerColors.swift */; };
+		5469C6C62521D4E700F81296 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469C6C52521D4E700F81296 /* SettingsView.swift */; };
+		5469C6CE2521D53600F81296 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469C6CD2521D53600F81296 /* ExploreView.swift */; };
+		5469C6D62521D7EA00F81296 /* ResignButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469C6D52521D7EA00F81296 /* ResignButton.swift */; };
 		548069232488388100A91153 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069222488388100A91153 /* AppDelegate.swift */; };
 		548069252488388100A91153 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069242488388100A91153 /* SceneDelegate.swift */; };
 		548069272488388100A91153 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069262488388100A91153 /* RootView.swift */; };
@@ -280,6 +283,9 @@
 		5468E1D8251F495B0078E5E4 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		5468E1E0251F80380078E5E4 /* ChessControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessControlView.swift; sourceTree = "<group>"; };
 		5468E1F4251FB1D40078E5E4 /* CheckerColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerColors.swift; sourceTree = "<group>"; };
+		5469C6C52521D4E700F81296 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5469C6CD2521D53600F81296 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		5469C6D52521D7EA00F81296 /* ResignButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignButton.swift; sourceTree = "<group>"; };
 		5480691F2488388100A91153 /* ChessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		548069222488388100A91153 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		548069242488388100A91153 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -480,6 +486,7 @@
 				54115A1825151824002DF01D /* ChessGameView.swift */,
 				54115A1425151656002DF01D /* PlayerView.swift */,
 				5468E1E0251F80380078E5E4 /* ChessControlView.swift */,
+				5469C6D52521D7EA00F81296 /* ResignButton.swift */,
 			);
 			path = ChessGameView;
 			sourceTree = "<group>";
@@ -690,6 +697,8 @@
 			children = (
 				54030568251D1CC000F80C5A /* AppColorScheme.swift */,
 				548069262488388100A91153 /* RootView.swift */,
+				5469C6C52521D4E700F81296 /* SettingsView.swift */,
+				5469C6CD2521D53600F81296 /* ExploreView.swift */,
 				54030560251D0DFD00F80C5A /* DevView.swift */,
 				54115A1C25152289002DF01D /* HomeView.swift */,
 				5403054C251D011200F80C5A /* ActionButton.swift */,
@@ -1122,10 +1131,13 @@
 				54115A64251923AC002DF01D /* AppState+GameCenter.swift in Sources */,
 				54115A2125168D6B002DF01D /* ApplicationEnviroment.swift in Sources */,
 				54BE6A8B24E1AD72005D9D82 /* ChessGameState+Checkerboard.swift in Sources */,
+				5469C6CE2521D53600F81296 /* ExploreView.swift in Sources */,
 				54806A0E2488492A00A91153 /* ChessPieceView.swift in Sources */,
 				548DE2CF251B6D5000F37A10 /* Debug.swift in Sources */,
 				54115A1F25153B91002DF01D /* Navigation.swift in Sources */,
 				548069272488388100A91153 /* RootView.swift in Sources */,
+				5469C6C62521D4E700F81296 /* SettingsView.swift in Sources */,
+				5469C6D62521D7EA00F81296 /* ResignButton.swift in Sources */,
 				54115A1B25151C7C002DF01D /* AppState+PlayerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
