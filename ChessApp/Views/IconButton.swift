@@ -11,53 +11,56 @@ import ComposableArchitecture
 
 struct IconButton: View {
     
-    init(systemName: String, viewStore:ViewStore<AppState,AppAction>, actions: [AppAction],title:String? = nil){
+    init(systemName: String, store:Store<(),AppAction>, actions: [AppAction],title:String? = nil){
         self.title = title
         self.actions = actions
-        self.viewStore = viewStore
+        self.store = store
         self.systemName = systemName
     }
     
     let title:String?
     let systemName:String
-    let viewStore: ViewStore<AppState,AppAction>
+    let store: Store<(),AppAction>
     let actions:[AppAction]
     
     var body: some View {
-        Button(action:{ actions.forEach{viewStore.send($0)} }, label: {
-            VStack {
-                
-                Image(systemName:systemName)
-                    .font(Font.title)
-                
-                if let title = title {
-                    Text(title)
+        WithViewStore(self.store)
+        {   viewStore in
+            Button(action:{ actions.forEach{viewStore.send($0)} }, label: {
+                VStack {
+                    
+                    Image(systemName:systemName)
+                        .font(Font.title)
+                    
+                    if let title = title {
+                        Text(title)
+                    }
+                    
                 }
-                
-            }
 
-        })
-        
+            })
+        }
     }
     
     let buttonBackgroundColor = AppColorScheme.insetBackgroundColor
     let buttonTextColor = AppColorScheme.textColor
 }
 
-fileprivate let mockViewStore =  ViewStore(Store(initialState: AppState(), reducer: appReducer, environment: Enviroment()))
-
+fileprivate let store = Store(initialState: (), reducer:Reducer<(),AppAction,()>{_,_,_ in Effect.none }, environment: ())
 struct IconButton_Previews: PreviewProvider {
+    
     static var previews: some View {
+        
         HStack {
             
             Spacer()
-            IconButton(systemName: "line.horizontal.3", viewStore:mockViewStore, actions: [])
+            IconButton(systemName: "line.horizontal.3", store:store, actions: [])
             Spacer()
-            IconButton(systemName: "equal.circle", viewStore:mockViewStore, actions: [],title: "Settings")
+            IconButton(systemName: "equal.circle", store:store, actions: [],title: "Settings")
             Spacer()
-            IconButton(systemName: "eye", viewStore:mockViewStore, actions: [],title: "Explore")
+            IconButton(systemName: "eye", store:store, actions: [],title: "Explore")
             Spacer()
-            IconButton( systemName: "lightbulb", viewStore:mockViewStore, actions: [],title: "Hint")
+            IconButton( systemName: "lightbulb", store:store, actions: [],title: "Hint")
             Spacer()
         }
         

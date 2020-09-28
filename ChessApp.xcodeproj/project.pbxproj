@@ -29,6 +29,7 @@
 		5469C6C62521D4E700F81296 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469C6C52521D4E700F81296 /* SettingsView.swift */; };
 		5469C6CE2521D53600F81296 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469C6CD2521D53600F81296 /* ExploreView.swift */; };
 		5469C6D62521D7EA00F81296 /* ResignButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469C6D52521D7EA00F81296 /* ResignButton.swift */; };
+		5469C6E4252225AB00F81296 /* GameOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5469C6E3252225AB00F81296 /* GameOver.swift */; };
 		548069232488388100A91153 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069222488388100A91153 /* AppDelegate.swift */; };
 		548069252488388100A91153 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069242488388100A91153 /* SceneDelegate.swift */; };
 		548069272488388100A91153 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548069262488388100A91153 /* RootView.swift */; };
@@ -286,6 +287,7 @@
 		5469C6C52521D4E700F81296 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5469C6CD2521D53600F81296 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		5469C6D52521D7EA00F81296 /* ResignButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignButton.swift; sourceTree = "<group>"; };
+		5469C6E3252225AB00F81296 /* GameOver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOver.swift; sourceTree = "<group>"; };
 		5480691F2488388100A91153 /* ChessApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChessApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		548069222488388100A91153 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		548069242488388100A91153 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 				548DE2C7251B6C8C00F37A10 /* Debug.swift */,
 				54115A622519235F002DF01D /* AppCore */,
 				54115A592518C51A002DF01D /* ChessGameReducer.swift */,
+				5469C6E3252225AB00F81296 /* GameOver.swift */,
 				54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */,
 				54115A1E25153B91002DF01D /* Navigation.swift */,
 				54115A6725192608002DF01D /* Glue */,
@@ -1109,6 +1112,7 @@
 				54115A1925151825002DF01D /* ChessGameView.swift in Sources */,
 				54115A6025191FBF002DF01D /* GameCenterEnviroment.swift in Sources */,
 				54BE6A8D24E3F51C005D9D82 /* ChessGameState.swift in Sources */,
+				5469C6E4252225AB00F81296 /* GameOver.swift in Sources */,
 				54115A172515178E002DF01D /* ChessEngine+Checkerboard.swift in Sources */,
 				54806A1324884A7600A91153 /* AppReducer.swift in Sources */,
 				54806A1524884A7600A91153 /* AppAction.swift in Sources */,

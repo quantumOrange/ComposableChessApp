@@ -93,7 +93,6 @@ struct PlayerView : View
                     Image(uiImage: viewStore.state.image)
                         .resizable()
                         .aspectRatio(1, contentMode: .fit)
-                        //.frame(width: 60, height: 60)
                         .clipShape(Circle())
                         .shadow( radius: 15)
                         .overlay(Circle().stroke(AppColorScheme.outlineColor, lineWidth: 2))

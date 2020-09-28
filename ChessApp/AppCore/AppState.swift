@@ -18,6 +18,8 @@ struct AppState: Equatable {
     var boardstate:CheckerBoardUIState = CheckerBoardUIState()
     var playerPointOfView:CheckerboardView.PlayerColor = .white
     var gameCenterMatchState:GameCenterMatchState = GameCenterMatchState()
+    
+    
 }
 
 

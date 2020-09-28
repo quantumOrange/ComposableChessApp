@@ -10,25 +10,22 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ChessControlView: View {
-    let viewStore: ViewStore<AppState,AppAction>
+    let store: Store<Void,AppAction>
     
     var body: some View {
-        HStack {
-            Spacer()
-            ResignButton(viewStore:mockViewStore)
-            Spacer()
-            
-            IconButton( systemName: "equal.circle", viewStore:viewStore, actions: [])
-            Spacer()
-            IconButton(systemName: "eye", viewStore:viewStore, actions: [.nav(.setShowExplore(true) )])
-            Spacer()
-            
-            /*
-            IconButton( systemName: "lightbulb", viewStore:viewStore, actions: [])
-            Spacer()
-            */
-        }
-        .foregroundColor(AppColorScheme.textColor)
+        
+            HStack {
+               
+                Spacer()
+                IconButton( systemName: "line.horizontal.3", store:self.store, actions: [.nav(.setShowGameOptionsActionSheet(true))])
+                Spacer()
+                IconButton(systemName: "eye", store:self.store, actions: [.nav(.setShowExplore(true) )])
+                Spacer()
+                
+            }
+            .foregroundColor(AppColorScheme.textColor)
+        
+        
     }
 }
 
@@ -38,10 +35,13 @@ struct ChessControlView: View {
 /************************      Preview   ****************************************/
 /***************************************************************************/
 
-fileprivate let mockViewStore =  ViewStore(Store(initialState: AppState(), reducer: appReducer, environment: Enviroment()))
 
+fileprivate let store = Store(initialState: (), reducer:Reducer<(),AppAction,()>{_,_,_ in Effect.none }, environment: ())
 struct ChessControlView_Previews: PreviewProvider {
+    
+    
     static var previews: some View {
-        ChessControlView(viewStore:  mockViewStore)
+        
+        ChessControlView(store: store)
     }
 }

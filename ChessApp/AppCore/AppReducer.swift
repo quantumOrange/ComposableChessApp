@@ -15,7 +15,6 @@ import CAGameCenter
 let chessboardReducer = Reducer<CheckerboardState<ChessGameState>, CheckerboardAction, CheckerboardEnviroment> (checkerBoardReducer)
 let gameCenterReducer = Reducer<GameCenterState<Chessboard>,GameCenterClientAction<Chessboard>,GameCenterEnviroment> (gameReducer)
 
-
 let appReducer: Reducer<AppState, AppAction, Enviroment> = Reducer.combine(
     chessGameReducer.pullback(state: \.chessGame, action: /AppAction.chessGame, environment:  { $0.chessGameEnviroment } ),
     chessboardReducer.pullback(state: \.chessboardState, action: /AppAction.checkerboard , environment: { $0.chessboardEnviroment }),

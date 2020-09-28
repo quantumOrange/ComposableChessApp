@@ -14,44 +14,33 @@ import ComposableArchitecture
 
 struct ResignButton: View {
     
-    init( viewStore:ViewStore<AppState,AppAction>)
-    {
-        self.viewStore = viewStore
-    }
     
-    let viewStore: ViewStore<AppState,AppAction>
+    let store: Store<(),AppAction>
     
     var body: some View {
-        Button(action: {viewStore.send(AppAction.chessGame(.resign(.white)))} , label: {
-            VStack {
-                
-                Text("♔")
-                    .rotationEffect(Angle(degrees: 45))
-                    .font(Font.largeTitle)
-                
-            }
+        WithViewStore(self.store)
+        {   viewStore in
+            Button(action: {viewStore.send(AppAction.chessGame(.resign(.white)))} , label: {
+                VStack {
+                    
+                    Text("♔")
+                        .rotationEffect(Angle(degrees: 45))
+                        .font(Font.largeTitle)
+                    
+                }
 
-        })
-        
+            })
+        }
     }
     
     let buttonBackgroundColor = AppColorScheme.insetBackgroundColor
     let buttonTextColor = AppColorScheme.textColor
 }
 
-fileprivate let mockViewStore =  ViewStore(Store(initialState: AppState(), reducer: appReducer, environment: Enviroment()))
-
+fileprivate let store = Store(initialState: (), reducer:Reducer<(),AppAction,()>{_,_,_ in Effect.none }, environment: ())
 struct ResignButton_Previews: PreviewProvider {
     static var previews: some View
     {
-        HStack
-        {
-            
-            Spacer()
-            IconButton(systemName: "line.horizontal.3", viewStore:mockViewStore, actions: [])
-            Spacer()
-            ResignButton(viewStore:mockViewStore)
-            Spacer()
-        }
+        ResignButton(store:store)
     }
 }

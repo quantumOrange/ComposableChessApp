@@ -24,7 +24,7 @@ struct ChessGameView : View {
                         .fill(AppColorScheme.insetInsetBackgroundColor)
                         .edgesIgnoringSafeArea(.all)
                     HStack {
-                        IconButton(systemName:"chevron.left",viewStore: viewStore, actions: [.nav(.setShowChessgame(false))])
+                        IconButton(systemName:"chevron.left", store:self.store.stateless, actions: [.nav(.setShowChessgame(false))])
                             .foregroundColor(AppColorScheme.textColor)
                         Spacer()
                     }
@@ -43,7 +43,7 @@ struct ChessGameView : View {
                         .fill(AppColorScheme.insetInsetBackgroundColor)
                         .edgesIgnoringSafeArea(.all)
 
-                    ChessControlView(viewStore: viewStore)
+                    ChessControlView( store:self.store.stateless)
                         
                 }
                 
@@ -52,9 +52,25 @@ struct ChessGameView : View {
                 }.hidden()
             }
             .navigationBarHidden(true)
+            .alert(item:.constant(viewStore.state.chessGame.gameOver))
+            {   alert in
+                Alert(title: Text("Game Over"), message: Text(alert.text), dismissButton: .default(Text("OK")))
+            }
+            .actionSheet(isPresented: viewStore.binding( get:{ $0.nav.showGameOptionsActionSheet}  ,send: { AppAction.nav(.setShowGameOptionsActionSheet($0)) } ), content: {
+                ActionSheet(
+                                title: Text("Chess Game"),
+                                message: Text("Available options"),
+                                buttons: [
+                                    .destructive(Text("Resign")){ viewStore.send(.chessGame(.resign(.white))) },
+                                    .default(Text("Offer Draw")){ viewStore.send(.chessGame(.offerDraw(.white))) },
+                                    .cancel()
+                                ]
+                            )
+            })
+            
             
         }
-        .debugOutline()
+        
         
     }
 }

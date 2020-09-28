@@ -50,7 +50,7 @@ struct HomeView: View
                     Spacer()
                 }
                 .navigationBarItems(trailing:
-                                    IconButton( systemName: "gear", viewStore:viewStore, actions: [.nav(.setShowSettings(true) )]))
+                                        IconButton( systemName: "gear", store:self.store.stateless, actions: [.nav(.setShowSettings(true) )]))
                 .navigationBarTitle("Chess")
                 //navigationBarTitleDisplayMode()
             }

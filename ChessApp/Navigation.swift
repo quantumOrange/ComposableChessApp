@@ -13,6 +13,7 @@ enum NavAction {
     case setShowChessgame(Bool)
     case setShowExplore(Bool)
     case setShowSettings(Bool)
+    case setShowGameOptionsActionSheet(Bool)
     case gotTo(NavState.Destinations)
 }
 
@@ -29,7 +30,7 @@ struct NavState:Equatable {
         case settings
         //case explore
     }
-    
+    var showGameOptionsActionSheet:Bool = false
     var destination = Destinations.home
     
     var showChessgame:Bool
@@ -86,6 +87,8 @@ let navReducer = Reducer<NavState, NavAction, ()> { state,action, env in
         else if state.showSettings {
             state.destination = .home
         }
+    case .setShowGameOptionsActionSheet(let value):
+        state.showGameOptionsActionSheet = value
     }
     return Effect.none
 }

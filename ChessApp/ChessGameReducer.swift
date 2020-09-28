@@ -40,15 +40,18 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
        case .chessMove(let move):
             if(applyMoveIfValid(board:&game.board, move:move))
             {
+                
                 return enviroment
                             .didSuccefullyApplyMove()
                             .merge(with:requestNextTurn(game: game, enviroment: enviroment))
                             .eraseToEffect()
             }
-    
+            
        case .move(let move):
+        //guard let chessMove = ChessMove(from: move.from.rawValue, to: move.to.int8Value ,on:game.board) else { return Effect.none }
             if(applyMoveIfValid(board:&game.board, move:move))
             {
+                updateGameOver(game: &game)
                 return enviroment
                             .didSuccefullyApplyMove()
                             .merge(with:requestNextTurn(game: game, enviroment: enviroment))
@@ -100,7 +103,6 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
        case .subscribe:
            return enviroment.subscribeToApplication()
     }
-    
     return Effect.none
 }
 
@@ -127,6 +129,18 @@ func requestNextTurn(game:ChessGameState, enviroment:ChessGameEnviromentProtocol
     case .computer:
         //let board = game.board
         return enviroment.chessEnginePickMove(board: game.board)
+    }
+}
+
+func updateGameOver(game:inout ChessGameState) {
+    switch game.board.gamePlayState {
+                               
+       case .won(let player):
+            game.gameOver = GameOver(state: .win(player,.checkmate))
+       case .draw:
+            game.gameOver = GameOver(state: .draw(.stalemate))
+       case .inPlay:
+           break
     }
 }
 
