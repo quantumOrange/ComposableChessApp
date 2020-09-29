@@ -70,6 +70,7 @@
 		54806A1424884A7600A91153 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54806A1124884A7600A91153 /* AppState.swift */; };
 		54806A1524884A7600A91153 /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54806A1224884A7600A91153 /* AppAction.swift */; };
 		548A23962523669C007C14D6 /* ChessEngine in Frameworks */ = {isa = PBXBuildFile; productRef = 548A23952523669C007C14D6 /* ChessEngine */; };
+		548A23AE25238B72007C14D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548A23AD25238B72007C14D6 /* User.swift */; };
 		548DE2B0251B4B1D00F37A10 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 548DE2AF251B4B1D00F37A10 /* GameKit.framework */; };
 		548DE2CF251B6D5000F37A10 /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548DE2C7251B6C8C00F37A10 /* Debug.swift */; };
 		54BE6A8924D9A31F005D9D82 /* Enviroment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BE6A8824D9A31F005D9D82 /* Enviroment.swift */; };
@@ -271,6 +272,7 @@
 		54806A1024884A7600A91153 /* AppReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 		54806A1124884A7600A91153 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		54806A1224884A7600A91153 /* AppAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
+		548A23AD25238B72007C14D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		548DE2AF251B4B1D00F37A10 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		548DE2B1251B4B7100F37A10 /* ChessApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChessApp.entitlements; sourceTree = "<group>"; };
 		548DE2C7251B6C8C00F37A10 /* Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
@@ -449,6 +451,7 @@
 				54115A622519235F002DF01D /* AppCore */,
 				54115A592518C51A002DF01D /* ChessGameReducer.swift */,
 				5469C6E3252225AB00F81296 /* GameOver.swift */,
+				548A23AD25238B72007C14D6 /* User.swift */,
 				54BE6A8C24E3F51C005D9D82 /* ChessGameState.swift */,
 				54115A1E25153B91002DF01D /* Navigation.swift */,
 				54115A6725192608002DF01D /* Glue */,
@@ -911,6 +914,7 @@
 				54115A5A2518C51A002DF01D /* ChessGameReducer.swift in Sources */,
 				54806A1424884A7600A91153 /* AppState.swift in Sources */,
 				54BE6A8924D9A31F005D9D82 /* Enviroment.swift in Sources */,
+				548A23AE25238B72007C14D6 /* User.swift in Sources */,
 				54115A5E2518FC73002DF01D /* CheckerboardEnviroment.swift in Sources */,
 				5468E1D9251F495B0078E5E4 /* IconButton.swift in Sources */,
 				5403054D251D011200F80C5A /* ActionButton.swift in Sources */,

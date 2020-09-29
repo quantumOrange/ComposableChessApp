@@ -7,25 +7,29 @@
 //
 
 import Foundation
+import ChessEngine
 import UIKit
 extension AppState {
+    
    var whitePlayer:PlayerViewModel {
+        let details = playerDetails(for: .white)
         return PlayerViewModel(
-                                name: "Mr White",
+                                details:details,
                                 player: .white,
                                 type: chessGame.players.player(for: .white),
                                 isPlayersTurn: (chessGame.board.whosTurnIsItAnyway == .white),
-                                image: UIImage(named:"defaultUser")!
+                                takenPieces: chessGame.board.takenPieces
                             )
     }
     
     var blackPlayer:PlayerViewModel {
+        let details = playerDetails(for: .black)
         return PlayerViewModel(
-                                name: "Mr Black",
+                                details:details,
                                 player: .black,
                                 type: chessGame.players.player(for: .black),
                                 isPlayersTurn: (chessGame.board.whosTurnIsItAnyway == .black),
-                                image: UIImage(named:"defaultComputer")!
+                                takenPieces: chessGame.board.takenPieces
                                 )
     }
     
@@ -44,6 +48,22 @@ extension AppState {
             return whitePlayer
         case .black:
             return blackPlayer
+        }
+    }
+    
+    func playerDetails(for color:PlayerColor ) -> PlayerDetails
+    {
+        switch chessGame.players.player(for:color)
+        {
+        
+        case .none:
+            return PlayerDetails(displayName:"", image: nil)
+        case .appUser:
+            return user
+        case .remote:
+            return remote
+        case .computer:
+            return computer
         }
     }
 }

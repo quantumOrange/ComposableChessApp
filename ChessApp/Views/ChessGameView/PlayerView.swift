@@ -15,6 +15,25 @@ extension ChessPiece.Kind {
 }
 
 struct PlayerViewModel:Equatable {
+    
+    init(details: PlayerDetails, player:PlayerColor, type:PlayerType,isPlayersTurn:Bool, takenPieces:[ChessPiece] ){
+        
+        self.name = details.displayName
+        self.image = details.image ?? UIImage()
+        self.type = type
+        self.isPlayersTurn = isPlayersTurn
+        self.player = player
+        
+        takenPiecesString = takenPieces
+                                .filter {   $0.player !=  player                                }
+                                .map {      ChessPiece(player: .black, kind: $0.kind, id:0)     }
+                                .sorted{    $0.value > $1.value                                 }
+                                .map{       $0.symbol                                           }
+                                .reduce(    "", +)
+                       
+        
+    }
+    
     var name:String
     var player:PlayerColor
     var type:PlayerType
@@ -22,15 +41,9 @@ struct PlayerViewModel:Equatable {
     
     var image:UIImage //= UIImage(named: <#T##String#>)
     
-    var takenPieces:[ChessPiece] = [
-        ChessPiece(player:.white, kind: .knight, id: 0),
-        ChessPiece(player:.white, kind: .pawn, id: 1),
-        ChessPiece(player:.white, kind: .rook, id: 2),
-        ChessPiece(player:.white, kind: .bishop, id: 3)
-    ]
     
     
-    var takenPiecesString:String = "♟♟♟♟♟♟♟♟ ♞♞ ♝♜♜ ♛"
+    var takenPiecesString:String
     
     var takenPieceColor:Color {
         switch player {
@@ -41,8 +54,6 @@ struct PlayerViewModel:Equatable {
         }
     }
     
-    
-   // var image:UIImage
 }
 
 func iconImageName(_ player:PlayerColor) -> String {
@@ -165,9 +176,10 @@ struct PlayerView : View
 }
 
 #if DEBUG
-let mockComputer = PlayerViewModel(name: "Computer", player: .black, type: .computer, isPlayersTurn: true,image: UIImage(named: "defaultComputer")!)
-let mockPlayer = PlayerViewModel(name: "Joe Blogs", player: .white, type: .appUser, isPlayersTurn: true,image: UIImage(named: "exampleUser")!)
-let mockRemote = PlayerViewModel(name: "Jimi Hendrix", player: .white, type: .remote, isPlayersTurn: true, image: UIImage(named: "defaultUser")!)
+
+let mockComputer = PlayerViewModel(details: PlayerDetails.defaultUser, player: .white, type: .appUser, isPlayersTurn: true, takenPieces: [])
+let mockPlayer = PlayerViewModel(details: PlayerDetails.defaultUser, player: .white, type: .appUser, isPlayersTurn: true, takenPieces: [])
+let mockRemote = PlayerViewModel(details: PlayerDetails.defaultUser, player: .white, type: .appUser, isPlayersTurn: true, takenPieces: [])
 
 
 let mockPVReducer = Reducer<PlayerViewModel,Never,Void>{ _ , _, _ in  .none }
