@@ -7,10 +7,27 @@
 //
 
 import SwiftUI
+enum Level: Int, CaseIterable, Identifiable {
+    case easy
+    case two
+    case three
+    case four
+    case five
+    case six
+
+    var id: Int { self.rawValue }
+}
 
 struct SettingsView: View {
+    
+    @State private var selectedLevel = Level.easy
+    
     var body: some View {
-        Text("Settings")
+        Picker("Chess Engine Level", selection: $selectedLevel) {
+            ForEach(Level.allCases) { level in
+                Text("Level \(level.rawValue)")
+                }
+        }
     }
 }
 

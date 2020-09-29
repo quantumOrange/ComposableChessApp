@@ -9,9 +9,9 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct IconButton: View {
+struct IconButton<Action>: View {
     
-    init(systemName: String, store:Store<(),AppAction>, actions: [AppAction],title:String? = nil){
+    init(systemName: String, store:Store<(),Action>, actions: [Action],title:String? = nil){
         self.title = title
         self.actions = actions
         self.store = store
@@ -20,8 +20,8 @@ struct IconButton: View {
     
     let title:String?
     let systemName:String
-    let store: Store<(),AppAction>
-    let actions:[AppAction]
+    let store: Store<(),Action>
+    let actions:[Action]
     
     var body: some View {
         WithViewStore(self.store)

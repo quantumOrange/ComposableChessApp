@@ -16,6 +16,7 @@ enum AppAction {
     case checkerboard(CheckerboardAction)
     case nav(NavAction)
     case gameCenter(GameCenterClientAction<Chessboard>)
+    case explore(ExploreAction)
 }
 
 

@@ -33,7 +33,7 @@ public protocol CheckerboardGame:Equatable {
     associatedtype Piece:CheckerPiece
     var placedPieces:[ PlacedCheckerPiece<Piece>] { get }
     
-    mutating func applyMove(move:Move) -> Bool // returns true if the move is valid and succesfully applied
+  //  mutating func applyMove(move:Move) -> Bool // returns true if the move is valid and succesfully applied
     func validDestinationSquares(for selected:CheckerboardSquare) -> [CheckerboardSquare]
 }
 

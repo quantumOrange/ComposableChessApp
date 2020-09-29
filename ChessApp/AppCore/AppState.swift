@@ -21,6 +21,8 @@ struct AppState: Equatable {
     var user = PlayerDetails.defaultUser
     var remote = PlayerDetails.remoteUser
     var computer = PlayerDetails.computer
+    
+    var exploreState:ExploreState = ExploreState(exploredGame: ChessGameState()) 
 }
 
 

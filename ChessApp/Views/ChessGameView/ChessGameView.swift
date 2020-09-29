@@ -47,7 +47,7 @@ struct ChessGameView : View {
                         
                 }
                 
-                NavigationLink(destination: ExploreView(), isActive: viewStore.binding( get:{ $0.nav.showExplore}  ,send: { AppAction.nav(.setShowExplore($0)) } ) ){
+                NavigationLink(destination: ExploreView(store:self.store.scope(state: \.exploreState ,action: AppAction.explore )  ), isActive: viewStore.binding( get:{ $0.nav.showExplore}  ,send: { AppAction.nav(.setShowExplore($0)) } ) ){
                     EmptyView()
                 }.hidden()
             }
