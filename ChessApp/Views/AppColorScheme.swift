@@ -18,7 +18,6 @@ struct AppColorScheme {
     static let textColor = Color(red:0.0, green:0.0,blue: 200.0/255)
     static let outlineColor = Color(red:0.0, green:0.0,blue: 200.0/255)
     
-    
-    //static let checkerColors = CheckerColors(
+
 }
 
