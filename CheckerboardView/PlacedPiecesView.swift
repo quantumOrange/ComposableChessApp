@@ -108,7 +108,7 @@ let mockPlacedPiecesState = PlacedPiecesState(placedPieces: [pp1,pp2,pp3,pp4], p
 struct PlacedPieceView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            CheckerboardSquaresView(store: Store(initialState: CheckerboardSquaresState(checkerColors: CheckerColors.defaultColors), reducer: nullReducer, environment: ()))
+            CheckerboardSquaresView(store: Store(initialState: CheckerboardSquaresState(playerPointOfView: .white, checkerColors: CheckerColors.defaultColors), reducer: nullReducer, environment: ()))
             
             PlacedPiecesView(store: Store(initialState: mockPlacedPiecesState, reducer: nullPieceReducer , environment: ()), getPieceView:DefaultPieceView.init )
         }

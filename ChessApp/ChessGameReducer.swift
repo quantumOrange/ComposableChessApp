@@ -39,7 +39,7 @@ protocol ChessGameEnviromentProtocol {
 
 let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnviromentProtocol>
 { game, action, enviroment in
-    
+    let cancel = Effect<ChessGameAction, Never>.cancel(id: "chessEnginePickMove")
     switch action {
     
        case .chessMove(let move):
@@ -65,16 +65,18 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
        case .nextTurn:
            return requestNextTurn(game: game, enviroment: enviroment)
        case .offerDraw(_):
-           // TODP: fix this
+           // TODO: fix this
            // We are currently automatically acepting a draw.
            // If we are playiong online we should give the oponent an oppotunity ti accept or refuse.
            // If we are playing the computer, the chessengine should accpet or refuse depending on the value of the position.
            game.board.gamePlayState = .draw
            game.gameOver = GameOver(state: .draw(.agreement))
+           return cancel
        case .resign(let player):
            let player = player ?? game.players.appUser!
            game.board.gamePlayState = .won(!player)
            game.gameOver = GameOver(state: .win(!player,.resignation))
+           return cancel
        case .noValidMoves:
            game.board.gamePlayState = .draw
            game.gameOver = GameOver(state: .draw(.stalemate))
@@ -90,7 +92,7 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
            case .black:
                game.players =  PlayerTypes(white:.remote, black: .appUser)
            }
-          
+           return cancel
            
            
        case .playComputerAs(let playerColor, let board ):
@@ -99,18 +101,24 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
            
            case .white:
                game.players = PlayerTypes(white: .appUser, black: .computer)
+                return cancel
            case .black:
                game.players = PlayerTypes(white: .computer, black: .appUser)
-               return requestNextTurn(game: game, enviroment: enviroment)
+                return cancel
+                        .merge(with: requestNextTurn(game: game, enviroment: enviroment))
+                        .eraseToEffect()
+              
            }
            
        case .playBothSides(let board):
            
            game.board = board ?? Chessboard.start()
            game.players = PlayerTypes(white: .appUser, black: .appUser)
+           return cancel
        case .clear:
            game.board = Chessboard.start()
            game.players = PlayerTypes(white: .none, black: .none)
+           return cancel
        case .subscribe:
            return enviroment.subscribeToApplication()
     case .setGame(let newGame):
@@ -145,6 +153,7 @@ func requestNextTurn(game:ChessGameState, enviroment:ChessGameEnviromentProtocol
     case .computer:
         //let board = game.board
         return enviroment.chessEnginePickMove(board: game.board)
+                        .cancellable(id: "chessEnginePickMove")
     }
 }
 

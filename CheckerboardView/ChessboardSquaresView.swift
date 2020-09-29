@@ -9,54 +9,11 @@
 import ComposableArchitecture
 import SwiftUI
 
-/*
-enum SquareColor {
-    case dark
-    case light
-    
-    static func at(rank:Int,file:Int) -> SquareColor {
-        return (rank + file).isMultiple(of: 2) ?
-                                            .dark :
-                                            .light
-    }
-}
-
-extension SquareColor {
-    
-    var color:Color {
-        switch self {
-        case .dark:
-            return Color(hue: 240.0/360.0, saturation:0.25, brightness: 0.75)
-        case .light:
-            return Color.white
-        }
-    }
-    
-    var highlightedColor:Color {
-        switch self {
-        case .dark:
-            return Color(hue: 60.0/360.0, saturation:0.75, brightness: 0.85)
-        case .light:
-            return Color(hue: 60.0/360.0, saturation:0.75, brightness: 0.85)
-        }
-    }
-    
-    var selectedColor:Color {
-        switch self {
-        case .dark:
-            return Color(hue: 60.0/360.0, saturation:0.95, brightness: 0.65)
-        case .light:
-            return Color(hue: 60.0/360.0, saturation:0.5, brightness: 1.0)
-        }
-    }
-    
-}
-*/
 
 struct CheckerboardSquaresState:Equatable {
     var possibleDestinationSquares:[CheckerboardSquare] = []
     var selectedSquare:CheckerboardSquare?
-    var playerPointOfView:PlayerColor = .white
+    var playerPointOfView:PlayerColor 
     let checkerColors:CheckerColors
     
     func color(rank:Int,file:Int) -> Color {
@@ -95,7 +52,7 @@ struct CheckerboardSquaresView: View
                         
                     VStack(alignment: .center, spacing:0)
                     {
-                        ForEach(ranks(orientatedFor:.white))
+                        ForEach(ranks(orientatedFor:viewStore.state.playerPointOfView))
                         {   rank in
                             Rectangle()
                                 .fill(viewStore.state.color(rank: rank, file: file))

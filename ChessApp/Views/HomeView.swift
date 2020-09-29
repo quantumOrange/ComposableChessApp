@@ -71,16 +71,13 @@ struct HomeView: View
                 .navigationBarItems(trailing:
                                         IconButton( systemName: "gear", store:self.store.stateless, actions: [.nav(.setShowSettings(true) )]))
                 .navigationBarTitle("Chess")
-                //navigationBarTitleDisplayMode()
+        
             }
-            
-            .debugOutline()
             
         }
         
     }
     
-   
 }
 
 
