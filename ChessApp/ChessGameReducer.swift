@@ -15,14 +15,17 @@ enum ChessGameAction {
     case clear
     case chessMove(ChessMove)
     case move(Move)
-    case resign(PlayerColor)
+    case resign(PlayerColor?)
     case timeout(PlayerColor)
-    case offerDraw(PlayerColor)
+    case offerDraw(PlayerColor?)
     case noValidMoves
     case nextTurn
     case playBothSides(Chessboard?)
     case playComputerAs(PlayerColor,Chessboard?)
     case setOnlineGame(Chessboard,PlayerColor)
+    case setGame(ChessGameState)
+    case saveCurrentGame
+    case load
 }
 
 protocol ChessGameEnviromentProtocol {
@@ -30,13 +33,15 @@ protocol ChessGameEnviromentProtocol {
     func sendTurnToGameCenter(board:Chessboard) -> Effect<ChessGameAction,Never>
     func chessEnginePickMove(board:Chessboard) -> Effect<ChessGameAction,Never>
     func subscribeToApplication() -> Effect<ChessGameAction,Never>
+    func save(game:ChessGameState) -> Effect<ChessGameAction, Never>
+    func load() -> Effect<ChessGameAction, Never>
 }
 
 let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnviromentProtocol>
 { game, action, enviroment in
     
     switch action {
-           
+    
        case .chessMove(let move):
             if(applyMoveIfValid(board:&game.board, move:move))
             {
@@ -48,7 +53,7 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
             }
             
        case .move(let move):
-        //guard let chessMove = ChessMove(from: move.from.rawValue, to: move.to.int8Value ,on:game.board) else { return Effect.none }
+            //guard let chessMove = ChessMove(from: move.from.rawValue, to: move.to.int8Value ,on:game.board) else { return Effect.none }
             if(applyMoveIfValid(board:&game.board, move:move))
             {
                 updateGameOver(game: &game)
@@ -60,30 +65,36 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
        case .nextTurn:
            return requestNextTurn(game: game, enviroment: enviroment)
        case .offerDraw(_):
+           // TODP: fix this
+           // We are currently automatically acepting a draw.
+           // If we are playiong online we should give the oponent an oppotunity ti accept or refuse.
+           // If we are playing the computer, the chessengine should accpet or refuse depending on the value of the position.
            game.board.gamePlayState = .draw
+           game.gameOver = GameOver(state: .draw(.agreement))
        case .resign(let player):
+           let player = player ?? game.players.appUser!
            game.board.gamePlayState = .won(!player)
+           game.gameOver = GameOver(state: .win(!player,.resignation))
        case .noValidMoves:
            game.board.gamePlayState = .draw
+           game.gameOver = GameOver(state: .draw(.stalemate))
        case .timeout(let player):
            game.board.gamePlayState = .won(!player)
        case .setOnlineGame(let chessboard, let localPlayer):
            print("Setting the game to:")
            print(chessboard)
            game.board = chessboard
-          // chessboard.moves.count.isMultiple(of: 2)
            switch localPlayer {
            case .white:
                game.players =   PlayerTypes(white: .appUser, black: .remote)
            case .black:
                game.players =  PlayerTypes(white:.remote, black: .appUser)
            }
-           game.gameHasBegun = true
+          
            
            
        case .playComputerAs(let playerColor, let board ):
            game.board = board ?? Chessboard.start()
-           //var effect
            switch playerColor {
            
            case .white:
@@ -102,10 +113,15 @@ let chessGameReducer = Reducer<ChessGameState, ChessGameAction, ChessGameEnvirom
            game.players = PlayerTypes(white: .none, black: .none)
        case .subscribe:
            return enviroment.subscribeToApplication()
+    case .setGame(let newGame):
+        game = newGame
+    case .saveCurrentGame:
+        return enviroment.save(game: game)
+    case .load:
+        return enviroment.load()
     }
     return Effect.none
 }
-
 
 func requestNextTurn(game:ChessGameState, enviroment:ChessGameEnviromentProtocol) -> Effect<ChessGameAction,Never> {
     let playerType =  game.players.player(for:game.board.whosTurnIsItAnyway)
@@ -139,8 +155,8 @@ func updateGameOver(game:inout ChessGameState) {
             game.gameOver = GameOver(state: .win(player,.checkmate))
        case .draw:
             game.gameOver = GameOver(state: .draw(.stalemate))
-       case .inPlay:
-           break
+       default:
+            game.gameOver = nil
     }
 }
 

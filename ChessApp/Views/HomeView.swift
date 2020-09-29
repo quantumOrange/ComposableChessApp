@@ -29,13 +29,30 @@ struct HomeView: View
                     
                     Spacer()
                     
-                    ActionButton(title: "Play Computer", viewStore: viewStore, actions:
+                    ActionButton(title: "New game As White", viewStore: viewStore, actions:
                                     [
                                         .chessGame(.playComputerAs(.white, nil)),
                                         .nav(.setShowChessgame(true) )
                                     ])
                         .padding()
                     
+                    ActionButton(title: "New game As Black", viewStore: viewStore, actions:
+                                    [
+                                        .chessGame(.playComputerAs(.black, nil)),
+                                        .nav(.setShowChessgame(true) )
+                                    ])
+                        .padding()
+                    
+                    if viewStore.state.chessGame.inPlay {
+                        ActionButton(title: "Continue Game", viewStore: viewStore, actions:
+                                        [
+                                           // .chessGame(.playComputerAs(.white, nil)),
+                                            .nav(.setShowChessgame(true) )
+                                        ])
+                            .padding()
+                    }
+                    
+            
                     ActionButton(title: "Play Online", viewStore: viewStore, actions: [.gameCenter(.userRequestsGame ) ])
                         .padding()
                     

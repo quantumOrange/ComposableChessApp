@@ -15,8 +15,7 @@ public struct Chessboard:Codable {
     public enum GamePlayState:Equatable ,Codable {
         case won(PlayerColor)
         case draw
-        // case noStarted
-        // case abandoned
+        case notStarted
         case inPlay
     }
     
@@ -45,7 +44,7 @@ public struct Chessboard:Codable {
         whosTurnIsItAnyway = !whosTurnIsItAnyway
     }
     
-    public var gamePlayState = GamePlayState.inPlay
+    public var gamePlayState = GamePlayState.notStarted
     
     private var storage:[ChessPiece?]
     
@@ -86,8 +85,7 @@ extension  Chessboard.GamePlayState {
     private enum CodingKeys: String, CodingKey {
         case won
         case draw
-        // case noStarted
-        // case abandoned
+        case notStarted
         case inPlay
     }
 
@@ -113,6 +111,11 @@ extension  Chessboard.GamePlayState {
             return
         }
         
+        if let _ = try? values.decode(String.self, forKey:.notStarted) {
+            self = .notStarted
+            return
+        }
+        
         throw PostTypeCodingError.decoding("Whoops! \(dump(values))")
     }
     
@@ -127,6 +130,8 @@ extension  Chessboard.GamePlayState {
             try container.encode("draw", forKey: .draw)
         case .inPlay:
             try container.encode("inPlay", forKey: .inPlay)
+        case .notStarted:
+            try container.encode("notStarted", forKey: .inPlay)
        
         }
     }
@@ -148,7 +153,7 @@ extension Chessboard {
             //file.rawValue*8 + rank.rawValue
             
         }
-       */
+        */
         ChessFile.allCases.forEach{ file in
             board[file , ._2] = ChessPiece(player: .white, kind: .pawn, id:ChessboardSquare(rank: ._2, file: file).id)
             board[file , ._7] = ChessPiece(player: .black, kind: .pawn, id:ChessboardSquare(rank: ._7, file: file).id)
@@ -433,7 +438,7 @@ extension Chessboard {
     }
 }
 
-
+/*
 extension Chessboard
 {
     mutating func setCannotCastle(player:PlayerColor, side:CastleSide)
@@ -462,7 +467,7 @@ extension Chessboard
  */
     }
 }
-
+*/
 func gamePlayState(chessboard:Chessboard) -> Chessboard.GamePlayState {
     
     let checked = isInCheck(chessboard: chessboard, player:chessboard.whosTurnIsItAnyway)

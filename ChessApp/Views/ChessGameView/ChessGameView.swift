@@ -61,17 +61,13 @@ struct ChessGameView : View {
                                 title: Text("Chess Game"),
                                 message: Text("Available options"),
                                 buttons: [
-                                    .destructive(Text("Resign")){ viewStore.send(.chessGame(.resign(.white))) },
-                                    .default(Text("Offer Draw")){ viewStore.send(.chessGame(.offerDraw(.white))) },
+                                    .destructive(Text("Resign")){ viewStore.send(.chessGame(.resign(nil))) },
+                                    .default(Text("Offer Draw")){ viewStore.send(.chessGame(.offerDraw(nil))) },
                                     .cancel()
                                 ]
                             )
             })
-            
-            
         }
-        
-        
     }
 }
 

@@ -28,13 +28,30 @@ struct PlayerTypes:Codable,Equatable {
             return black
         }
     }
+    
+    func color(of playerType:PlayerType) -> PlayerColor? {
+         white == playerType ? .white : (black == playerType ? .black : nil)
+    }
+    
+    var appUser:PlayerColor? { color(of: .appUser)}
+    var remotePlayer:PlayerColor? {color(of: .remote) }
+    var computer:PlayerColor? { color(of: .computer) }
 }
 
 struct ChessGameState:Equatable {
-    var gameHasBegun = false
+    var inPlay:Bool { board.gamePlayState == .inPlay }
     var board:Chessboard =  Chessboard.start()
     var players:PlayerTypes = PlayerTypes(white:.none, black: .none)
     
     var gameOver:GameOver? = nil
     init() {}
+    
 }
+
+extension ChessGameState:Codable {
+    private enum CodingKeys: String, CodingKey {
+        case board, players
+    }
+}
+
+

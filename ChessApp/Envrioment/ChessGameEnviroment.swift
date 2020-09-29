@@ -16,6 +16,28 @@ class ChessGameEnviroment:ChessGameEnviromentProtocol
         return applicationEnviroment.didSuccefullyApplyMove()
     }
     
+    func save(game:ChessGameState) -> Effect<ChessGameAction, Never>  {
+        Effect<ChessGameAction, Never>.fireAndForget {
+            if let encodeGame = try? JSONEncoder().encode(game) {
+                UserDefaults.standard.setValue(encodeGame, forKey: "lastGame")
+            }
+        }
+    }
+    
+    func load() -> Effect<ChessGameAction, Never>  {
+        Effect<ChessGameAction, Never>.future
+        {   callback in
+            
+            if let data = UserDefaults.standard.data(forKey: "lastGame"),
+               let game = try? JSONDecoder().decode(ChessGameState.self,from:data)
+            {
+                  callback(.success(.setGame(game)))
+            }
+            
+        }
+    }
+    
+    
     let applicationEnviroment:ApplicationEnviroment
     
     init(applicationEnviroment:ApplicationEnviroment)
