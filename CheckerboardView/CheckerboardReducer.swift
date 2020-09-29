@@ -7,25 +7,9 @@
 //
 
 import Foundation
-//import Chess
 import ComposableArchitecture
 
-///     struct MyState { var count = 0, text = "" }
-///     enum MyAction { case buttonTapped, textChanged(String) }
-///     struct MyEnvironment { var analyticsClient: AnalyticsClient }
-///
-///     let myReducer = Reducer<MyState, MyAction, MyEnvironment> { state, action, environment in
-///       switch action {
-///       case .buttonTapped:
-///         state.count += 1
-///         return environment.analyticsClient.track("Button Tapped")
-///
-///       case .textChanged(let text):
-///         state.text = text
-///         return .none
-///       }
-///     }
-///
+
 public protocol CheckerboardEnviromentProtocol
 {
     func subscribe() -> Effect<CheckerboardAction,Never>
@@ -33,14 +17,16 @@ public protocol CheckerboardEnviromentProtocol
 }
 
 public struct CheckerBoardUIState:Equatable {
-    var playerPointOfView:PlayerColor = .white
+    public var playerPointOfView:PlayerColor
+    var defaultPlayerPointOfView:PlayerColor
     var selectedSquare:CheckerboardSquare? = nil
     var validDestinationSquares:[CheckerboardSquare] = []
+
     
-    //var playable:Playable = .playSide(.white)
-    var userHasFlippedBoard:Bool = false //TODO get rid of this.
-    
-    public init() {}
+    public init(defaultPOV:PlayerColor) {
+        self.playerPointOfView = defaultPOV
+        self.defaultPlayerPointOfView = defaultPOV
+    }
 }
 
 public protocol CheckerboardGame:Equatable {
@@ -56,8 +42,8 @@ public struct CheckerboardState<Game:CheckerboardGame>:Equatable {
     
     var turn:PlayerColor
     let checkerColors:CheckerColors
-    var userPlaysBlack:Bool = false
-    var userPlaysWhite:Bool = true
+    var userPlaysBlack:Bool
+    var userPlaysWhite:Bool
     
     var isUsersTurn:Bool {
         switch turn {
@@ -69,22 +55,23 @@ public struct CheckerboardState<Game:CheckerboardGame>:Equatable {
     }
     public var boardState:CheckerBoardUIState
     
-    public init(game:Game,turn:PlayerColor, boardState:CheckerBoardUIState,checkerColors:CheckerColors = CheckerColors.defaultColors){
-        //self.placedPieces = placedPieces
+    public init(game:Game,turn:PlayerColor, boardState:CheckerBoardUIState,userPlaysWhite:Bool, userPlaysBlack:Bool,checkerColors:CheckerColors = CheckerColors.defaultColors){
         self.game = game
         self.turn = turn
         self.boardState = boardState
         self.checkerColors = checkerColors
+        self.userPlaysBlack = userPlaysBlack
+        self.userPlaysWhite = userPlaysWhite
     }
 }
 
 public enum CheckerboardAction {
     case tap(CheckerboardSquare)
     case clear
-    case flipBoard(PlayerColor)
+    case reset
+    case showFromPlayerPOV(PlayerColor?)
+    case flipBoard
     case subscribe
-    //case setGame(Game)
-    //case validDestinationSquares([CheckerboardSquare])
 }
 
 struct DefaultGame:CheckerboardGame {
@@ -123,8 +110,7 @@ public func checkerBoardReducer<Game>( state:inout CheckerboardState<Game>, acti
       case .tap(let square):
         print("did Tap");
         if(!state.isUsersTurn) {
-              //Can only select a square if it is the app users turn
-              // ( for now anyway.  could allow pre-selection )
+
               break
           }
         if state.boardState.selectedSquare == square
@@ -138,45 +124,42 @@ public func checkerBoardReducer<Game>( state:inout CheckerboardState<Game>, acti
             
             if isYourPiece(state:state , square: square)
               {
-                    //selecting a differant peice to move
+                   //selecting a differant peice to move
                    state.boardState.selectedSquare = square
                    state.boardState.validDestinationSquares = []
                    state.boardState.validDestinationSquares = state.game.validDestinationSquares(for:square)
-                 // return environment.selected(square)
+                 
               }
               else if let selectedSquare = state.boardState.selectedSquare
               {
-                  //We have a selected square already
+                  //We have a selected square already, so we are tapping the square to move TO
                   let move =  Move(from: selectedSquare,to:square)
                 
                   return environment.playMove(move: move)
-                /*
-                if state.game.applyMove(move: move) {
-                    clear()
-                    return environment.requestMove(state.game)
-                }
-                  */
-                  /*
-                  let effect = Effect<Output<ChessboardAction,ChessboardExoAction>>.sync(work: {
-                      return .exo(.move(move))
-                  })
-                  
-                  return effect
-                  */
-                
-                //return environment.playMove(move)
+               
               }
           }
       case .clear:
           clear()
       
       case .flipBoard:
-          //state.userHasFlippedBoard.toggle()
           state.boardState.playerPointOfView =  !state.boardState.playerPointOfView
-    //case .validDestinationSquares(let squares):
-        //state.boardState.validDestinationSquares = squares
-    case .subscribe:
-        return environment.subscribe()
+      case .showFromPlayerPOV(let pov):
+        if let pov = pov {
+            state.boardState.playerPointOfView = pov
+        }
+        else {
+            state.boardState.playerPointOfView = state.boardState.defaultPlayerPointOfView
+        }
+      case .subscribe:
+            return environment.subscribe()
+    
+    case .reset:
+        let defaultPOV:PlayerColor = (state.userPlaysBlack && !state.userPlaysWhite) ? .black : .white
+        print("up black:\(state.userPlaysBlack) white\(state.userPlaysWhite)")
+        print("\(defaultPOV)")
+        state.boardState = CheckerBoardUIState(defaultPOV: defaultPOV)
+        
     }
     return .none
 

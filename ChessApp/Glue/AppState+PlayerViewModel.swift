@@ -30,7 +30,7 @@ extension AppState {
     }
     
     var topPlayer:PlayerViewModel {
-        switch playerPointOfView {
+        switch boardstate.playerPointOfView {
         case .white:
             return blackPlayer
         case .black:
@@ -39,7 +39,7 @@ extension AppState {
     }
     
     var bottomPlayer:PlayerViewModel {
-        switch playerPointOfView {
+        switch boardstate.playerPointOfView {
         case .white:
             return whitePlayer
         case .black:

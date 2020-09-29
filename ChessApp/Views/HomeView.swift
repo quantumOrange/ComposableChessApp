@@ -32,6 +32,7 @@ struct HomeView: View
                     ActionButton(title: "New game As White", viewStore: viewStore, actions:
                                     [
                                         .chessGame(.playComputerAs(.white, nil)),
+                                        .checkerboard(.reset),
                                         .nav(.setShowChessgame(true) )
                                     ])
                         .padding()
@@ -39,6 +40,7 @@ struct HomeView: View
                     ActionButton(title: "New game As Black", viewStore: viewStore, actions:
                                     [
                                         .chessGame(.playComputerAs(.black, nil)),
+                                        .checkerboard(.reset),
                                         .nav(.setShowChessgame(true) )
                                     ])
                         .padding()
@@ -46,7 +48,7 @@ struct HomeView: View
                     if viewStore.state.chessGame.inPlay {
                         ActionButton(title: "Continue Game", viewStore: viewStore, actions:
                                         [
-                                           // .chessGame(.playComputerAs(.white, nil)),
+                                            .checkerboard(.reset),
                                             .nav(.setShowChessgame(true) )
                                         ])
                             .padding()

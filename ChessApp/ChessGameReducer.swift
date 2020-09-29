@@ -150,7 +150,6 @@ func requestNextTurn(game:ChessGameState, enviroment:ChessGameEnviromentProtocol
 
 func updateGameOver(game:inout ChessGameState) {
     switch game.board.gamePlayState {
-                               
        case .won(let player):
             game.gameOver = GameOver(state: .win(player,.checkmate))
        case .draw:

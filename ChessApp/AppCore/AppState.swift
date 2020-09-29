@@ -15,8 +15,8 @@ struct AppState: Equatable {
     var user = User.david()
     var nav:NavState  = NavState()
     var chessGame:ChessGameState = ChessGameState()
-    var boardstate:CheckerBoardUIState = CheckerBoardUIState()
-    var playerPointOfView:CheckerboardView.PlayerColor = .white
+    var boardstate:CheckerBoardUIState = CheckerBoardUIState(defaultPOV: .white)
+   
     var gameCenterMatchState:GameCenterMatchState = GameCenterMatchState()
     
     
